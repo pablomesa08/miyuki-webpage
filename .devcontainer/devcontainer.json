@@ -1,0 +1,37 @@
+{
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:20-bookworm",
+  "hostRequirements": {
+    "cpus": 2
+  },
+  "features": {
+  },
+  "onCreateCommand": "npm install",
+  
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "eamodio.gitlens",
+        "PKief.material-icon-theme",
+        "streetsidesoftware.code-spell-checker",
+        "kisstkondoros.vscode-gutter-preview",
+        "vincaslt.highlight-matching-tag",
+        "formulahendry.auto-rename-tag",
+        "christian-kohler.npm-intellisense",
+        "esbenp.prettier-vscode",
+        "dbaeumer.vscode-eslint"
+      ],
+      "settings": {
+        "workbench.iconTheme": "material-icon-theme",
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true
+      }
+    }
+  },
+  "portsAttributes": {
+    "3000": {
+      "label": "Application",
+      "onAutoForward": "openPreview"
+    }
+  },
+  "forwardPorts": [3000]
+}
