@@ -56,6 +56,14 @@ export default function Page() {
       >
         Admin Dashboard
       </Button>
+
+      <div>
+        <p>hola</p>
+        <div className=" h-91"></div>
+        <h1>hola</h1>
+        <div className=" h-96"></div>
+        <h1>hola</h1>
+      </div>
     </div>
   );
 }
