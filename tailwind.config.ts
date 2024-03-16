@@ -20,6 +20,7 @@ const config: Config = {
   darkMode: "class",
   plugins: [
     nextui({
+      prefix: "myapp",
       themes: {
         "purple-dark": {
           extend: "light",
