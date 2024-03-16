@@ -1,8 +1,10 @@
+import NavbarHome from "@/components/ui/navbar/navbarHome";
 import { Button } from "@nextui-org/react";
 
 export default function Page() {
   return (
     <div>
+      <NavbarHome />
       {/*Buttom to go to /promos*/}
       <Button
         onClick={() => {
