@@ -5,8 +5,13 @@ import Autoplay from "embla-carousel-autoplay";
 import useEmblaCarousel from "embla-carousel-react";
 import { Image } from "@nextui-org/react";
 
+type SlideType = {
+  image: string;
+  text: string;
+};
+
 type PropType = {
-  slides: string[];
+  slides: SlideType[];
   options?: EmblaOptionsType;
 };
 
@@ -35,9 +40,12 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
     <section className="embla">
       <div className="embla__viewport" ref={emblaRef}>
         <div className="embla__container">
-          {slides.map((index) => (
+          {slides.map((slide, index) => (
             <div className="embla__slide" key={index}>
-              <Image src={index} alt="slide" />
+              <div className="flex flex-col items-center">
+                <Image src={slide.image} alt="slide" />
+                <p className="font-medium text-center">{slide.text}</p>
+              </div>
             </div>
           ))}
         </div>

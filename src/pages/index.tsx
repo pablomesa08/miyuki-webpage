@@ -1,19 +1,84 @@
 import EmblaCarousel from "@/components/ui/imageCarousel/EmblaCarousel";
 import { EmblaOptionsType } from "embla-carousel";
 import NavbarHome from "@/components/ui/navbar/navbarHome";
+import { Divider } from "@nextui-org/react";
 
 export default function Page() {
   const OPTIONS: EmblaOptionsType = { loop: true };
-  const SLIDES = [
-    "https://images.pexels.com/photos/19597529/pexels-photo-19597529/free-photo-of-hombre-playa-arena-perro.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    "https://images.pexels.com/photos/19877487/pexels-photo-19877487/free-photo-of-madera-ligero-amanecer-paisaje.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    "https://images.pexels.com/photos/20623990/pexels-photo-20623990/free-photo-of-herrerillo-azul-de-ensueno.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+  const announces = [
+    {
+      image: "https://source.unsplash.com/random/600x300",
+      text: "",
+    },
+    {
+      image: "https://source.unsplash.com/random/600x300",
+      text: "",
+    },
+    {
+      image: "https://source.unsplash.com/random/600x300",
+      text: "",
+    },
+  ];
+
+  const categories = [
+    {
+      image: "https://source.unsplash.com/random/200x200",
+      text: "Dijes",
+    },
+    {
+      image: "https://source.unsplash.com/random/200x200",
+      text: "Accesorios finalizados",
+    },
+    {
+      image: "https://source.unsplash.com/random/200x200",
+      text: "Personalizar",
+    },
+  ];
+
+  const favouriteTags = [
+    {
+      image: "https://source.unsplash.com/random/200x200",
+      text: "Animales",
+    },
+    {
+      image: "https://source.unsplash.com/random/200x200",
+      text: "Flores",
+    },
+    {
+      image: "https://source.unsplash.com/random/200x200",
+      text: "Personajes",
+    },
   ];
 
   return (
     <div>
       <NavbarHome />
-      <EmblaCarousel slides={SLIDES} options={OPTIONS} />
+
+      <section className="flex flex-col  items-center">
+        <EmblaCarousel slides={announces} options={OPTIONS} />
+        <article className="max-w-screen-md">
+          <h1 className="text-4xl">Descripción tienda</h1>
+          <p className="text-lg">
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Possimus
+            esse doloribus corporis ut repellendus, accusantium culpa, enim
+            minima molestias dolor labore ea. Ut ex pariatur officia, fugiat
+            soluta distinctio quibusdam!
+          </p>
+        </article>
+        <Divider className="h-1 max-w-screen-md bg-white mt-3 mb-3 " />
+
+        <article>
+          <h1 className=" text-2xl text-center mb-5">Categorías</h1>
+          <EmblaCarousel slides={categories} options={OPTIONS} />
+        </article>
+
+        <Divider className="h-1 max-w-screen-md bg-white mt-3 mb-3 " />
+
+        <article>
+          <h1 className=" text-2xl text-center mb-5">Tags favoritos</h1>
+          <EmblaCarousel slides={favouriteTags} options={OPTIONS} />
+        </article>
+      </section>
     </div>
   );
 }
