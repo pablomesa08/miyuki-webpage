@@ -22,7 +22,7 @@ const config: Config = {
     nextui({
       themes: {
         "purple-dark": {
-          extend: "light",
+          extend: "dark",
           colors: {
             background: "#0D001A",
             foreground: "#ffffff",

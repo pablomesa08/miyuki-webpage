@@ -20,7 +20,7 @@ import { AcmeLogo } from "./AcmeLogo.jsx";
 export default function NavbarHome() {
   const menuItemsRoutes = {
     Productos: "/store",
-    Promociones: "/promos",
+    Promociones: "/products/tag?tag=promociones",
     Conócenos: "/contact",
   };
 
