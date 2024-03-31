@@ -1,4 +1,5 @@
 import ProductGrid from "@/components/products/productGrid";
+import Footer from "@/components/ui/navbar/footer";
 import NavbarHome from "@/components/ui/navbar/navbarHome";
 import { Button, Checkbox, CheckboxGroup } from "@nextui-org/react";
 import { useRouter } from "next/router";
@@ -11,7 +12,7 @@ export default function Tag() {
     <div>
       <NavbarHome />
       <div className="flex flex-col items-center">
-        <section className="flex flex-row justify-around w-full">
+        <section className="flex flex-row justify-around ">
           <article className="flex flex-col w-[150px] ml-16 mt-44">
             <h1 className="text-xl font-bold text-center">Filtros</h1>
             <CheckboxGroup>
@@ -22,7 +23,7 @@ export default function Tag() {
               ))}
             </CheckboxGroup>
           </article>
-          <article className=" flex flex-col grow items-center mt-5 mr-10 ">
+          <article className=" flex flex-col grow items-center mt-5 mr-10 max-w-[900px] w-full ">
             <h1 className="text-2xl uppercase font-bold ">{tag}</h1>
             <Button size="sm" variant="solid" className="self-end mr-10">
               Ordenar
@@ -32,6 +33,7 @@ export default function Tag() {
           </article>
         </section>
       </div>
+      <Footer />
     </div>
   );
 }

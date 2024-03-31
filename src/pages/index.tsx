@@ -5,6 +5,7 @@ import FeaturedProduct from "@/components/featured/featuredProduct";
 import FeaturedAccessories from "@/components/featured/featuredAccessories";
 import FavouriteTags from "@/components/featured/favouriteTags";
 import FeaturedSocialMedia from "@/components/featured/featuredSocialMedia";
+import Footer from "@/components/ui/navbar/footer";
 
 export default function Page() {
   const OPTIONS: EmblaOptionsType = { loop: true };
@@ -39,6 +40,7 @@ export default function Page() {
         <FavouriteTags />
         <FeaturedSocialMedia />
       </section>
+      <Footer />
     </div>
   );
 }

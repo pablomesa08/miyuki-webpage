@@ -60,7 +60,7 @@ export default function ProductGrid() {
               radius="lg"
               width="100%"
               alt={item.title}
-              className="object-cover h-[200px] max-w-[200px]"
+              className="object-cover h-[250px] max-w-[250px]"
               src={item.img}
             />
           </CardBody>

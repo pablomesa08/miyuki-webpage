@@ -1,6 +1,7 @@
 import ThreeImageGallery, {
   ImageInfo,
 } from "@/components/ui/groupImages/threeImageGallery";
+import Footer from "@/components/ui/navbar/footer";
 import NavbarHome from "@/components/ui/navbar/navbarHome";
 import { Card, CardBody, CardHeader, Image } from "@nextui-org/react";
 
@@ -88,6 +89,7 @@ export default function Contact() {
           <ThreeImageGallery imageInfoArray={artisans} />
         </article>
       </section>
+      <Footer />
     </div>
   );
 }
