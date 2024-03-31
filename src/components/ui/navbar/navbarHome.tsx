@@ -35,7 +35,9 @@ export default function NavbarHome() {
         <NavbarContent className="hidden mt-2 sm:flex gap-20" justify="center">
           <div className="flex items-center ">
             <AcmeLogo />
-            <p className="font-bold text-inherit">LOGO</p>
+            <Link href="/" color="foreground">
+              <p className="font-bold text-inherit">LOGO</p>
+            </Link>
           </div>
           <div className="flex flex-row items-center gap-3 ">
             {Object.entries(menuItemsRoutes).map(([item, href], index) => (

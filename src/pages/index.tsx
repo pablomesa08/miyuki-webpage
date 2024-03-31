@@ -1,7 +1,6 @@
 import EmblaCarousel from "@/components/ui/imageCarousel/EmblaCarousel";
 import { EmblaOptionsType } from "embla-carousel";
 import NavbarHome from "@/components/ui/navbar/navbarHome";
-import { Divider } from "@nextui-org/react";
 import FeaturedProduct from "@/components/featured/featuredProduct";
 import FeaturedAccessories from "@/components/featured/featuredAccessories";
 import FavouriteTags from "@/components/featured/favouriteTags";
@@ -21,21 +20,6 @@ export default function Page() {
     {
       image: "https://source.unsplash.com/random/200x200",
       text: "",
-    },
-  ];
-
-  const favouriteTags = [
-    {
-      image: "https://source.unsplash.com/random/200x200",
-      text: "Animales",
-    },
-    {
-      image: "https://source.unsplash.com/random/200x200",
-      text: "Flores",
-    },
-    {
-      image: "https://source.unsplash.com/random/200x200",
-      text: "Personajes",
     },
   ];
 
