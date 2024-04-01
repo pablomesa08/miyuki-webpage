@@ -14,7 +14,11 @@ export default function Product() {
     stock: 10,
     mass: 0.5,
     addedDate: new Date(),
-    colors: ["#000000", "#224f21", "#ff0000"],
+    colors: [
+      ["#ff0000", "#00ff00", "#0000ff"],
+      ["#ffff00", "#ff00ff", "#00ffff"],
+      ["#e74c3c", "#8e44ad", "#3498db", "#2ecc71"],
+    ],
     image: "https://source.unsplash.com/random/200x200",
   };
 
