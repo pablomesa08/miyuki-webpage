@@ -13,13 +13,28 @@ export default function Fotter() {
           </Link>
         </div>
         <div className="flex flex-row gap-4">
-          <Button size="sm" variant="solid">
+          <Button
+            size="sm"
+            variant="solid"
+            color="secondary"
+            className="font-bold"
+          >
             {"información"}
           </Button>
-          <Button size="sm" variant="solid">
+          <Button
+            size="sm"
+            variant="solid"
+            color="secondary"
+            className="font-bold"
+          >
             {"información"}
           </Button>
-          <Button size="sm" variant="solid">
+          <Button
+            size="sm"
+            variant="solid"
+            color="secondary"
+            className="font-bold"
+          >
             {"información"}
           </Button>
         </div>

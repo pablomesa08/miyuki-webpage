@@ -65,7 +65,7 @@ export default function Contact() {
           />
         </Card>
         <ThreeImageGallery imageInfoArray={characteristics} />
-        <Card className="mt-7 bg-gray-700">
+        <Card className="mt-7 ">
           <CardBody className=" max-w-[600px] text-justify">
             <p>
               Descripción general de la tienda: Lorem ipsum dolor sit amet,

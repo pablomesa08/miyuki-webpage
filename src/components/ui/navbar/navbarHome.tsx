@@ -48,7 +48,12 @@ export default function NavbarHome() {
               </NavbarItem>
             ))}
             <div className="flex items-center gap-2">
-              <Button size="sm" variant="solid">
+              <Button
+                size="sm"
+                color="primary"
+                variant="solid"
+                className=" font-bold"
+              >
                 Iniciar sesión
               </Button>
               <Icon path={mdiMagnify} size={1} />

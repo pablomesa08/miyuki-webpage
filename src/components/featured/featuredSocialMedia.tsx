@@ -21,7 +21,9 @@ export default function FeaturedSocialMedia() {
             <h1 className="text-2xl font-bold text-center">
               Siguenos en redes sociales
             </h1>
-            <Button className=" w-24">Instagram</Button>
+            <Button className="w-24 font-bold" color="success">
+              Instagram
+            </Button>
           </div>
         </div>
       </CardBody>

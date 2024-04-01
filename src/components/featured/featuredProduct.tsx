@@ -15,7 +15,9 @@ export default function FeaturedProduct() {
           <div className="flex flex-col  max-w-[350px] gap-2 items-center">
             <h1 className="text-2xl font-bold text-center">{product.title}</h1>
             <p className="text-base text-justify">{product.description}</p>
-            <Button className=" w-24">Ver producto</Button>
+            <Button className="w-24 font-bold" color="success">
+              Ver producto
+            </Button>
           </div>
           <div className="flex flex-col w-1/2 items-center">
             <Image
