@@ -17,7 +17,7 @@ export default function Product() {
     colors: [
       ["#ff0000", "#00ff00", "#0000ff"],
       ["#ffff00", "#ff00ff", "#00ffff"],
-      ["#e74c3c", "#8e44ad", "#3498db", "#2ecc71"],
+      ["#e74c3c", "#8e44ad", "#3498db", "#2ecc71", "#0000ff", "#000000"],
     ],
     image: "https://source.unsplash.com/random/200x200",
   };

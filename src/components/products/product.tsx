@@ -1,12 +1,4 @@
-import {
-  Button,
-  Card,
-  CardBody,
-  Checkbox,
-  Image,
-  Radio,
-  RadioGroup,
-} from "@nextui-org/react";
+import { Button, Card, CardBody, Image } from "@nextui-org/react";
 import { HeartIcon } from "../ui/icons/HeartIcon.jsx";
 import { useState } from "react";
 type ProductData = {
@@ -25,7 +17,7 @@ export default function ProductComponent({
 }: Readonly<{ product: ProductData }>) {
   const [selectedColorSet, setSelectedColorSet] = useState(product.colors[0]);
 
-  const getPath = (colorIndex, colorSetLength) => {
+  const getPath = (colorIndex: number, colorSetLength: number) => {
     const xCenter = 50;
     const yCenter = 50;
     const radius = 40;
@@ -75,18 +67,19 @@ export default function ProductComponent({
 
               <div>
                 <p>Colores</p>
-                <div className="flex">
+                <div className="flex justify-center items-center gap-4">
                   {product.colors.map((colorSet, setIdx) => (
-                    <button
+                    <Button
+                      isIconOnly
                       key={setIdx}
-                      className={`mx-2 w-20 h-20 rounded-full border-2 border-gray-300 ${
+                      className={` h-[60px] w-[60px] p-0 rounded-full   ${
                         selectedColorSet === colorSet
-                          ? "ring-4 ring-offset-2"
+                          ? "ring-2 ring-offset-2 ring-primary-500"
                           : ""
                       }`}
                       onClick={() => setSelectedColorSet(colorSet)}
                     >
-                      <svg viewBox="0 0 100 100" className="w-20 h-20">
+                      <svg viewBox="0 0 100 100" width="100%" height="100%">
                         {colorSet.map((color, colorIndex) => (
                           <path
                             key={colorIndex}
@@ -95,7 +88,7 @@ export default function ProductComponent({
                           />
                         ))}
                       </svg>
-                    </button>
+                    </Button>
                   ))}
                 </div>
               </div>
