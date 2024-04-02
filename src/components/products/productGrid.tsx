@@ -1,47 +1,27 @@
 import React from "react";
 import { Card, CardBody, CardFooter, Image } from "@nextui-org/react";
+import { useRouter } from "next/router";
 
 export default function ProductGrid() {
+  const router = useRouter();
   const list = [
     {
       title: "Orange",
       img: "https://source.unsplash.com/random/200x200",
       price: "$5.50",
+      uuid: "1",
     },
     {
       title: "Tangerine",
       img: "https://source.unsplash.com/random/200x200",
       price: "$3.00",
+      uuid: "2",
     },
     {
       title: "Raspberry",
       img: "https://source.unsplash.com/random/200x200",
       price: "$10.00",
-    },
-    {
-      title: "Lemon",
-      img: "https://source.unsplash.com/random/200x200",
-      price: "$5.30",
-    },
-    {
-      title: "Avocado",
-      img: "https://source.unsplash.com/random/200x200",
-      price: "$15.70",
-    },
-    {
-      title: "Lemon 2",
-      img: "https://source.unsplash.com/random/200x200",
-      price: "$8.00",
-    },
-    {
-      title: "Banana",
-      img: "https://source.unsplash.com/random/200x200",
-      price: "$7.50",
-    },
-    {
-      title: "Watermelon",
-      img: "https://source.unsplash.com/random/200x200",
-      price: "$12.20",
+      uuid: "3",
     },
   ];
 
@@ -52,7 +32,9 @@ export default function ProductGrid() {
           shadow="sm"
           key={index}
           isPressable
-          onPress={() => console.log("item pressed")}
+          onPress={() =>
+            router.push(`/products/product?productId=${item.uuid}`)
+          }
         >
           <CardBody className="overflow-visible p-0">
             <Image

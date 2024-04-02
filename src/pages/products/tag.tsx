@@ -9,9 +9,9 @@ export default function Tag() {
   const { tag } = router.query;
   const filters: string[] = ["bonito", "pajaro", "pez"];
   return (
-    <div>
+    <div className="flex flex-col min-h-screen  justify-between">
       <NavbarHome />
-      <div className="flex flex-col items-center">
+      <main className="">
         <section className="flex flex-row justify-around ">
           <article className="flex flex-col w-[150px] ml-16 mt-44">
             <h1 className="text-xl font-bold text-center">Filtros</h1>
@@ -32,7 +32,7 @@ export default function Tag() {
             <ProductGrid />
           </article>
         </section>
-      </div>
+      </main>
       <Footer />
     </div>
   );
