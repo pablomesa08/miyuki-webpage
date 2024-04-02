@@ -36,7 +36,7 @@ export default function Product() {
         ],
       },
     ],
-    format: ["Format 1", "Format 2", "Format 3", "Format 4"],
+    format: ["Format 1", "Format 2", "Format 3"],
   };
 
   return (

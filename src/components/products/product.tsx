@@ -1,4 +1,4 @@
-import { Button, Card, CardBody, Image } from "@nextui-org/react";
+import { Button, ButtonGroup, Card, CardBody, Image } from "@nextui-org/react";
 import { HeartIcon } from "../ui/icons/HeartIcon.jsx";
 import { useState } from "react";
 
@@ -26,6 +26,18 @@ export default function ProductComponent({
     product.colorSets[0]
   );
   const [selectedFormat, setSelectedFormat] = useState(product.format[0]);
+
+  const [quantity, setQuantity] = useState(1);
+
+  const handleIncrement = () => {
+    setQuantity((prevQuantity) => prevQuantity + 1);
+  };
+
+  const handleDecrement = () => {
+    if (quantity > 1) {
+      setQuantity((prevQuantity) => prevQuantity - 1);
+    }
+  };
 
   const getPath = (colorIndex: number, colorSetLength: number) => {
     const xCenter = 50;
@@ -119,9 +131,18 @@ export default function ProductComponent({
               </div>
             </div>
 
-            <p>Agregado: {product.addedDate.toLocaleDateString()}</p>
-
-            <Button className="btn">Comprar</Button>
+            <div className="flex flex-row justify-around flex-wrap items-center">
+              <ButtonGroup variant="flat" radius="full">
+                <Button isIconOnly onClick={handleDecrement}>
+                  -
+                </Button>
+                <Button isIconOnly>{quantity}</Button>
+                <Button isIconOnly onClick={handleIncrement}>
+                  +
+                </Button>
+              </ButtonGroup>
+              <Button className="btn">Comprar</Button>
+            </div>
           </div>
         </div>
       </CardBody>
