@@ -11,7 +11,7 @@ export default function Tag() {
   return (
     <div className="flex flex-col min-h-screen  justify-between">
       <NavbarHome />
-      <main className="">
+      <main>
         <section className="flex flex-row justify-around ">
           <article className="flex flex-col w-[150px] ml-16 mt-44">
             <h1 className="text-xl font-bold text-center">Filtros</h1>

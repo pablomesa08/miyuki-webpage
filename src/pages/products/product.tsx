@@ -40,14 +40,14 @@ export default function Product() {
   };
 
   return (
-    <div className="flex flex-col h-[89.5vh] justify-between">
+    <div className="flex flex-col min-h-[100vh] justify-between">
       <NavbarHome />
-      <main className="flex-grow">
+      <main>
         <div className="flex items-center justify-center h-full ">
           <ProductComponent product={product} />
         </div>
-        <Footer />
       </main>
+      <Footer />
     </div>
   );
 }
