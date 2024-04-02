@@ -27,7 +27,7 @@ export default function Page() {
   return (
     <div>
       <NavbarHome />
-
+      <div className="mt-5"></div>
       <section className="flex flex-col  items-center">
         <FeaturedProduct />
         <FeaturedAccessories />
