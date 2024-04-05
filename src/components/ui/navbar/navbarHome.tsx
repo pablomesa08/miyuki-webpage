@@ -10,13 +10,11 @@ import {
   Input,
   Button,
 } from "@nextui-org/react";
-
-import AvatarProfile from "./avatarProfile/AvatarProfile.jsx";
-
 import Icon from "@mdi/react";
 import { mdiCartOutline, mdiMagnify } from "@mdi/js";
-
 import { AcmeLogo } from "./AcmeLogo.jsx";
+import DropdownFullScreen from "./dropdownFullScreen.tsx";
+
 export default function NavbarHome() {
   const menuItemsRoutes = {
     Productos: "/store",
@@ -40,6 +38,9 @@ export default function NavbarHome() {
             </Link>
           </div>
           <div className="flex flex-row items-center gap-3 ">
+            <NavbarMenuItem>
+              <DropdownFullScreen />
+            </NavbarMenuItem>
             {Object.entries(menuItemsRoutes).map(([item, href], index) => (
               <NavbarItem key={index} isActive={item === "Customers"}>
                 <Link color="foreground" href={href}>
