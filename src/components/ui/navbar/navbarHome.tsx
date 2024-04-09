@@ -9,33 +9,11 @@ import {
   NavbarItem,
   Link,
   Button,
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
 } from "@nextui-org/react";
 import Icon from "@mdi/react";
 import { mdiCartOutline, mdiMagnify } from "@mdi/js";
 import { AcmeLogo } from "./AcmeLogo.jsx";
-
-type categoryLink = {
-  label: string;
-  href: string;
-};
-
-type Category = {
-  label: string;
-  items: categoryLink[];
-};
-
-type DropdownFullScreenCategoriesProps = {
-  categories: Category[];
-};
-
-type LinkPopupProps = {
-  key: string;
-  link: string;
-  content: string;
-};
+import ProductsPopover, { Category } from "./ProductsPopover";
 
 export default function NavbarHome() {
   const menuItemsRoutes = {
@@ -96,43 +74,28 @@ export default function NavbarHome() {
             </Link>
           </div>
           <div className="flex flex-row items-center gap-3">
-            <NavbarMenuItem>
-              <Popover placement="bottom">
-                <PopoverTrigger>
-                  <Link color="foreground">Productos</Link>
-                </PopoverTrigger>
-                <PopoverContent>
-                  <div className="w-[calc(100vw-50px)] flex flex-row justify-around">
-                    {categories.map((category, index) => (
-                      <div key={index} className="flex flex-col">
-                        <h3>{category.label}</h3>
-                        {category.items.map((item, index) => (
-                          <a key={index} href={item.href} content={item.label}>
-                            {item.label}
-                          </a>
-                        ))}
-                      </div>
-                    ))}
-                  </div>
-                </PopoverContent>
-              </Popover>
+            <NavbarMenuItem className="flex flex-row items-center">
+              <ProductsPopover categories={categories} />
             </NavbarMenuItem>
             {Object.entries(menuItemsRoutes).map(([item, href], index) => (
-              <NavbarItem key={index}>
+              <NavbarItem key={href}>
                 <Link color="foreground" href={href}>
                   {item}
                 </Link>
               </NavbarItem>
             ))}
             <div className="flex items-center gap-2">
-              <Button
-                size="sm"
-                color="primary"
-                variant="solid"
-                className=" font-bold"
-              >
-                Iniciar sesión
-              </Button>
+              <Link href="/user/auth">
+                <Button
+                  size="sm"
+                  color="primary"
+                  variant="solid"
+                  className=" font-bold"
+                >
+                  Iniciar sesión
+                </Button>
+              </Link>
+
               <Icon path={mdiMagnify} size={1} />
               <Icon path={mdiCartOutline} size={1} />
             </div>
