@@ -4,7 +4,7 @@ export default function Auth() {
   return (
     <main className="flex flex-col min-h-[100vh] items-center justify-center">
       <section className="w-full flex flex-row justify-center grow items-center">
-        <Card className="w-9/12  sm:h-[400px]">
+        <Card className="  sm:h-[400px]">
           <CardBody className="flex flex-row justify-evenly gap-10 flex-wrap items-center">
             <section className="flex flex-col">
               <h1>¡Bienvenido!</h1>
