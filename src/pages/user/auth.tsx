@@ -4,23 +4,23 @@ export default function Auth() {
   return (
     <main className="flex flex-col min-h-[100vh] items-center justify-center">
       <section className="w-full flex flex-row justify-center grow items-center">
-        <Card className="  sm:h-[400px]">
-          <CardBody className="flex flex-row justify-evenly gap-10 flex-wrap items-center">
-            <section className="flex flex-col">
-              <h1>¡Bienvenido!</h1>
+        <Card className="">
+          <CardBody className="flex flex-row justify-evenly gap-10 flex-wrap items-center  w-[400px] sm:w-[600px] md:w-[800px] lg:w-[1000px]">
+            <section className="flex flex-col gap-2">
+              <h1 className="font-bold text-center">¡Bienvenido!</h1>
               <p>Usuario/correo:</p>
               <Input
                 autoFocus
-                label="Email"
-                placeholder="Enter your email"
+                placeholder="Ingrese su correo"
                 variant="bordered"
+                radius="full"
               />
               <p>Contraseña:</p>
               <Input
-                label="Password"
-                placeholder="Enter your password"
+                placeholder="Ingrese su contraseña"
                 type="password"
                 variant="bordered"
+                radius="full"
               />
               <Button>Iniciar sesión</Button>
               <p>
@@ -28,12 +28,12 @@ export default function Auth() {
                 <Link href="/user/register">Registrate</Link>
               </p>
             </section>
-            <section>
+            <section className="mt-5 mb-5">
               <Image
                 alt="Random image"
-                src="https://source.unsplash.com/random/700x500"
-                width={300}
-                height={250}
+                src="https://source.unsplash.com/random/500x400"
+                width={500}
+                height={400}
               ></Image>
             </section>
           </CardBody>
