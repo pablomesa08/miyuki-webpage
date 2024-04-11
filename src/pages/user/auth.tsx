@@ -24,7 +24,8 @@ export default function Auth() {
               />
               <Button>Iniciar sesión</Button>
               <p>
-                ¿No tienes una cuenta? <strong>Regístrate</strong>
+                ¿No tienes una cuenta?{" "}
+                <Link href="/user/register">Registrate</Link>
               </p>
             </section>
             <section>
