@@ -122,8 +122,9 @@ export default function ProductComponent({
                 {product.format.map((format, formatIdx) => (
                   <Button
                     key={formatIdx}
-                    color={selectedFormat === format ? "primary" : "secondary"}
-                    onClick={() => setSelectedFormat(format)}
+                    className={`${
+                    selectedFormat === format ? 'bg-primary-50 text-white' : 'bg-secondary-50 text-black'
+                    } transition-colors duration-300`} onClick={() => setSelectedFormat(format)}
                   >
                     {format}
                   </Button>
@@ -141,7 +142,7 @@ export default function ProductComponent({
                   +
                 </Button>
               </ButtonGroup>
-              <Button className="btn">Comprar</Button>
+              <Button className="btn bg-primary">Comprar</Button>
             </div>
           </div>
         </div>
