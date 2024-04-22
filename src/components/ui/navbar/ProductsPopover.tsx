@@ -4,6 +4,7 @@ import {
   PopoverTrigger,
   PopoverContent,
   Link,
+  
 } from "@nextui-org/react";
 
 type categoryLink = {
@@ -23,11 +24,11 @@ type ProductsPopoverProps = {
 const ProductsPopover: React.FC<ProductsPopoverProps> = ({ categories }) => {
   return (
     <Popover placement="bottom">
-      <PopoverTrigger>
+      <PopoverTrigger className="bg-background !important">
         <Link className="text-primary-50">Productos</Link>
       </PopoverTrigger>
-      <PopoverContent>
-        <div className="w-[calc(100vw-50px)] flex flex-row justify-around">
+      <PopoverContent className="bg-secondary-500 !important">
+        <div className="w-[calc(100vw-50px)] flex flex-row justify-around ">
           {categories.map((category, index) => (
             <div key={category.label} className="flex flex-col">
               <h3>{category.label}</h3>
