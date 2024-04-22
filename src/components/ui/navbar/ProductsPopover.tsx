@@ -24,7 +24,7 @@ const ProductsPopover: React.FC<ProductsPopoverProps> = ({ categories }) => {
   return (
     <Popover placement="bottom">
       <PopoverTrigger>
-        <Link color="foreground">Productos</Link>
+        <Link className="text-primary-50">Productos</Link>
       </PopoverTrigger>
       <PopoverContent>
         <div className="w-[calc(100vw-50px)] flex flex-row justify-around">
