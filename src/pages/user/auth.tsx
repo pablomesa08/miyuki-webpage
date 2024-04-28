@@ -1,11 +1,13 @@
 import { Card, CardBody, Input, Image, Link } from "@nextui-org/react";
 import { useState } from "react";
+import { useAuth } from "../../context/AuthContext";
 
 export default function Auth() {
   const [credentials, setCredentials] = useState({
     email: "",
     password: "",
   });
+  const { login } = useAuth();
 
   const handleLogin = (e: { target: { name: string; value: string } }) => {
     setCredentials({
@@ -20,19 +22,26 @@ export default function Auth() {
 
     const response = await fetch("/api/auth/login", {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify(credentials),
     });
 
-    const data = await response.json();
-    console.log(data);
+    if (response.ok) {
+      const data = await response.json();
+      login(data.jwt);
+    } else {
+      console.error("Failed to login");
+    }
   };
 
   return (
     <main className="flex flex-col min-h-[100vh] items-center justify-center">
       <Link href="/">Regresar a página principal</Link>
       <section className="w-full flex flex-row justify-center grow items-center">
-        <Card className="">
-          <CardBody className="flex flex-row justify-evenly gap-10 flex-wrap items-center  w-[400px] sm:w-[600px] md:w-[800px] lg:w-[1000px]">
+        <Card>
+          <CardBody className="flex flex-row justify-evenly gap-10 flex-wrap items-center w-[400px] sm:w-[600px] md:w-[800px] lg:w-[1000px]">
             <form onSubmit={handleSubmit} className="flex flex-col gap-2">
               <h1 className="font-bold text-center">¡Bienvenido!</h1>
               <p>Usuario/correo:</p>
@@ -54,10 +63,11 @@ export default function Auth() {
                 radius="full"
                 onChange={handleLogin}
               />
-              <button>Iniciar sesión</button>
+              <button type="submit">Iniciar sesión</button>
               <p>
                 ¿No tienes una cuenta?{" "}
                 <Link href="/user/register">Registrate</Link>
+                <Link href="/user/protected">Protected</Link>
               </p>
             </form>
             <section className="mt-5 mb-5">
@@ -66,7 +76,7 @@ export default function Auth() {
                 src="https://source.unsplash.com/random/500x400"
                 width={500}
                 height={400}
-              ></Image>
+              />
             </section>
           </CardBody>
         </Card>
