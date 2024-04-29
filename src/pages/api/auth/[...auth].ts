@@ -6,12 +6,6 @@ export default async function handler(
   res: NextApiResponse
 ) {
   if (req.method === "POST") {
-    console.log("----------------------");
-    console.log("Iniciando sesión back", req.body);
-    console.log("Ruta del backend", process.env.BACKEND_URL);
-    console.log("Ruta de la api", `${process.env.BACKEND_URL}/auth/login`);
-    console.log("Contenido body", req.body);
-    console.log("----------------------");
     const response = await fetch(`${process.env.BACKEND_URL}/auth/login`, {
       method: "POST",
       headers: {
@@ -32,8 +26,6 @@ export default async function handler(
       console.error("Error parsing JSON", err);
       return res.status(500).json({ error: "Error parsing JSON" });
     }
-
-    console.log(data);
 
     return res.status(200).json(data);
   } else {
