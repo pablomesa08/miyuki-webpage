@@ -2,7 +2,7 @@ import { Button, Card, CardBody, Image } from "@nextui-org/react";
 
 export default function FeaturedSocialMedia() {
   const socialMedia = {
-    image: "https://via.placeholder.com/300x250",
+    image: "/Images/backround/azul.png",
   };
 
   return (

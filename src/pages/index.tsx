@@ -11,15 +11,15 @@ export default function Page() {
   const OPTIONS: EmblaOptionsType = { loop: true };
   const favouriteClients = [
     {
-      image: "https://source.unsplash.com/random/200x200",
+      image: "/Images/backround/verde.png",
       text: "",
     },
     {
-      image: "https://source.unsplash.com/random/200x200",
+      image: "/Images/backround/verde.png",
       text: "",
     },
     {
-      image: "https://source.unsplash.com/random/200x200",
+      image: "/Images/backround/verde.png",
       text: "",
     },
   ];
@@ -35,7 +35,10 @@ export default function Page() {
           <h1 className=" text-2xl text-center mb-5">
             Favoritos de nuestros clientes
           </h1>
-          <EmblaCarousel slides={favouriteClients} options={OPTIONS} />
+          <div style={{ display: 'flex', justifyContent: 'space-around', width: '500px', height: '350px' }}>
+          <EmblaCarousel slides={favouriteClients} options={OPTIONS}  />
+          </div>
+          
         </article>
         <FavouriteTags />
         <FeaturedSocialMedia />

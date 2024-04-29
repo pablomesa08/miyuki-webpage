@@ -5,11 +5,11 @@ export default function FeaturedProduct() {
     title: "Titulo para producto destacado",
     description:
       "Descripcion de producto destacado, Descripcion de producto destacado, Descripcion de producto destacado",
-    image: "https://via.placeholder.com/300x250",
+    image: "/Images/backround/azul.png",
   };
 
   return (
-    <Card className="border-none maw-w-[610px] bg-transparent">
+    <Card className="border-none maw-w-[1465px] bg-transparent">
       <CardBody>
         <div className="flex flex-row items-center gap-10">
           <div className="flex flex-col  max-w-[350px] gap-2 items-center">
@@ -19,7 +19,7 @@ export default function FeaturedProduct() {
               Ver producto
             </Button>
           </div>
-          <div className="flex flex-col w-1/2 items-center">
+          <div className="flex flex-col w-1/2 items-center" >
             <Image
               alt={product.description}
               src={product.image}

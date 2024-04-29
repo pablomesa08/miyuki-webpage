@@ -7,19 +7,19 @@ export default function ProductGrid() {
   const list = [
     {
       title: "Orange",
-      img: "https://source.unsplash.com/random/200x200",
+      img: "/Images/backround/azul.png",
       price: "$5.50",
       uuid: "1",
     },
     {
       title: "Tangerine",
-      img: "https://source.unsplash.com/random/200x200",
+      img: "/Images/backround/verdeazul.png",
       price: "$3.00",
       uuid: "2",
     },
     {
       title: "Raspberry",
-      img: "https://source.unsplash.com/random/200x200",
+      img: "/Images/backround/morado.png",
       price: "$10.00",
       uuid: "3",
     },

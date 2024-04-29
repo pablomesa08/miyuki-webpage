@@ -14,7 +14,7 @@ export default function Product() {
     stock: 10,
     mass: 0.5,
     addedDate: new Date(),
-    image: "https://source.unsplash.com/random/200x200",
+    image: "/Images/backround/azul.png",
     colorSets: [
       {
         name: "Set 1",

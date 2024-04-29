@@ -4,17 +4,17 @@ import ThreeImageGallery, {
 export default function FavouriteTags() {
   const accessories: ImageInfo[] = [
     {
-      imageUrl: "https://source.unsplash.com/random/150x150",
+      imageUrl: "/Images/backround/verdeazul.png",
       imageTitle: "Flores",
       imageDescription: "",
     },
     {
-      imageUrl: "https://source.unsplash.com/random/150x150",
+      imageUrl: "/Images/backround/verdeazul.png",
       imageTitle: "Animales",
       imageDescription: "",
     },
     {
-      imageUrl: "https://source.unsplash.com/random/150x150",
+      imageUrl: "/Images/backround/verdeazul.png",
       imageTitle: "Personajes",
       imageDescription: "",
     },
@@ -23,7 +23,10 @@ export default function FavouriteTags() {
   return (
     <section>
       <h1 className="text-2xl font-bold text-center">Etiquetas favoritas</h1>
+      <div style={{ display: 'flex', justifyContent: 'space-around', width: '600px' }}>
       <ThreeImageGallery imageInfoArray={accessories} />
+      </div>
+      
     </section>
   );
 }
