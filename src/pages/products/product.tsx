@@ -1,50 +1,49 @@
 import ProductComponent, { ProductData } from "@/components/products/product";
 import Footer from "@/components/ui/navbar/footer";
 import NavbarHome from "@/components/ui/navbar/navbarHome";
+import { useProduct } from "@/hooks/useProduct";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
 export default function Product() {
   const router = useRouter();
   const { productId } = router.query;
+  const { getProductById } = useProduct();
+  const [product, setProduct] = useState<ProductData | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const product: ProductData = {
-    name: "Product",
-    description: "Product description",
-    price: 100,
-    stock: 10,
-    mass: 0.5,
-    addedDate: new Date(),
-    image: "https://source.unsplash.com/random/200x200",
-    colorSets: [
-      {
-        name: "Set 1",
-        colors: ["#ff0000", "#00ff00", "#0000ff"],
-      },
-      {
-        name: "Set 2",
-        colors: ["#ffff00", "#ff00ff", "#00ffff"],
-      },
-      {
-        name: "Set 3",
-        colors: [
-          "#e74c3c",
-          "#8e44ad",
-          "#3498db",
-          "#2ecc71",
-          "#0000ff",
-          "#000000",
-        ],
-      },
-    ],
-    format: ["Format 1", "Format 2", "Format 3"],
-  };
+  useEffect(() => {
+    if (typeof productId === "string" && !product) {
+      setLoading(true);
+      setError(null);
+      getProductById(productId)
+        .then((data) => {
+          setProduct(data);
+          setLoading(false);
+        })
+        .catch((err) => {
+          console.error("Failed to fetch product:", err);
+          setError(err.message || "Failed to load product");
+          setLoading(false);
+        });
+    }
+  }, [getProductById, product, productId]);
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
+  if (!product) return <div>Product not found</div>; // Dependency array, to re-run this effect when productId changes
 
   return (
     <div className="flex flex-col min-h-[100vh] justify-between">
       <NavbarHome />
       <main>
         <div className="flex items-center justify-center h-full ">
-          <ProductComponent product={product} />
+          {product ? (
+            <ProductComponent product={product} />
+          ) : (
+            <div>Product not found</div>
+          )}
         </div>
       </main>
       <Footer />
