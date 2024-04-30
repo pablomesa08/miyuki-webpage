@@ -1,16 +1,11 @@
 import { Card, CardBody, Input, Image, Link, Button } from "@nextui-org/react";
 import { useEffect, useState } from "react";
-import { useAuth } from "../../context/AuthContext";
 import { useRouter } from "next/router";
 import { FaEyeSlash } from "react-icons/fa";
 import { BsEyeFill } from "react-icons/bs";
+
 export default function Auth() {
-  const [credentials, setCredentials] = useState({
-    email: "",
-    password: "",
-  });
-  const { login } = useAuth();
-  const { isAuthenticated, jwt } = useAuth();
+  const [credentials, setCredentials] = useState({ email: "", password: "" });
   const router = useRouter();
   const [error, setError] = useState("");
   const [isVisible, setIsVisible] = useState(false);
@@ -30,33 +25,6 @@ export default function Auth() {
     });
   };
 
-  const handleSubmit = async (e: { preventDefault: () => void }) => {
-    e.preventDefault();
-    console.log("Iniciando sesión", credentials);
-
-    const response = await fetch("/api/auth/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(credentials),
-    });
-
-    if (response.ok) {
-      const data = await response.json();
-      login(data.jwt);
-    } else {
-      setError("Credenciales incorrectas, por favor intente de nuevo");
-      console.error("Failed to login");
-    }
-  };
-
-  useEffect(() => {
-    if (isAuthenticated()) {
-      router.push("/");
-    }
-  }, [isAuthenticated, jwt, router]);
-
   const toggleVisibility = () => setIsVisible(!isVisible);
 
   return (
@@ -65,7 +33,11 @@ export default function Auth() {
       <section className="w-full flex flex-row justify-center grow items-center">
         <Card>
           <CardBody className="flex flex-row justify-evenly gap-10 flex-wrap items-center w-[400px] sm:w-[600px] md:w-[800px] lg:w-[1000px]">
-            <form onSubmit={handleSubmit} className="flex flex-col gap-2">
+            <form
+              method="post"
+              action="/api/auth/login"
+              className="flex flex-col gap-2"
+            >
               <h1 className="font-bold text-center">¡Bienvenido!</h1>
               <p>Usuario/correo:</p>
               <Input
@@ -105,7 +77,7 @@ export default function Auth() {
                 radius="full"
                 onChange={handleLogin}
               />
-              <button type="submit">Iniciar sesión</button>
+              <Button type="submit">Iniciar sesión</Button>
               {error && (
                 <p className="text-danger mt-2 text-center w-64">{error}</p>
               )}

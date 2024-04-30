@@ -1,43 +1,20 @@
-"use client";
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@nextui-org/react";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
 
-export default function LoginLogoutButtom() {
-  const { isAuthenticated } = useAuth();
-  const { logout } = useAuth();
-  const router = useRouter();
+export default function LoginLogoutButton() {
+  const { isLoggedIn, login, logout, isLoading } = useAuth();
 
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-
-  const login = async () => {
-    router.push("/user/auth");
-  };
-
-  const logoutAction = async () => {
-    logout();
-  };
-
-  if (!isClient) {
-    return null; // or return a loading spinner, placeholder, etc.
-  }
+  if (isLoading) return <p>Loading...</p>;
 
   return (
     <Button
-      suppressHydrationWarning
       size="sm"
-      // if isAuthenticated is true, the button will be primary, otherwise it will be secondary
-      color={isAuthenticated() ? "danger" : "primary"}
+      color={isLoggedIn ? "danger" : "primary"}
       variant="solid"
-      className=" font-bold"
-      onClick={isAuthenticated() ? logoutAction : login}
+      className="font-bold"
+      onClick={isLoggedIn ? logout : login}
     >
-      {isAuthenticated() ? "Logout" : "Login"}
+      {isLoggedIn ? "Logout" : "Login"}
     </Button>
   );
 }

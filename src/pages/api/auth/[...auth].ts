@@ -1,4 +1,3 @@
-// pages/api/auth/[...auth].ts
 import type { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(
@@ -6,6 +5,7 @@ export default async function handler(
   res: NextApiResponse
 ) {
   if (req.method === "POST") {
+    console.log("req.body", req.body);
     const response = await fetch(`${process.env.BACKEND_URL}/auth/login`, {
       method: "POST",
       headers: {
@@ -15,21 +15,36 @@ export default async function handler(
     });
 
     if (!response.ok) {
-      console.error(`Error: ${response.status}`);
-      return res.status(response.status).json({ error: "Server error" });
+      return res
+        .status(response.status)
+        .json({ error: "Authentication failed" });
     }
 
-    let data;
-    try {
-      data = await response.json();
-    } catch (err) {
-      console.error("Error parsing JSON", err);
-      return res.status(500).json({ error: "Error parsing JSON" });
+    const data = await response.json();
+    console.log("data", data);
+    const token = data.jwt;
+    if (!token) {
+      return res
+        .status(500)
+        .json({ error: "Token was not provided by auth server" });
     }
 
-    return res.status(200).json(data);
-  } else {
-    res.setHeader("Allow", ["POST"]);
-    return res.status(405).end(`Method ${req.method} Not Allowed`);
+    // Set cookie with secure and httpOnly flags in a real app!
+    const cookieOptions = [
+      `auth_token=${token}`,
+      "Path=/",
+      "HttpOnly",
+      process.env.NODE_ENV === "production" ? "Secure" : "",
+      "SameSite=Lax", // Can use Strict or Lax depending on your requirements
+    ]
+      .filter(Boolean)
+      .join("; ");
+
+    res.setHeader("Set-Cookie", cookieOptions);
+    return res.status(200).json({ success: true });
   }
+
+  // Not allowing any method other than POST
+  res.setHeader("Allow", ["POST"]);
+  return res.status(405).end("Method Not Allowed");
 }
