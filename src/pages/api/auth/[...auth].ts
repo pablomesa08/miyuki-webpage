@@ -5,7 +5,6 @@ export default async function handler(
   res: NextApiResponse
 ) {
   if (req.method === "POST") {
-    console.log("req.body", req.body);
     const response = await fetch(`${process.env.BACKEND_URL}/auth/login`, {
       method: "POST",
       headers: {
@@ -21,7 +20,6 @@ export default async function handler(
     }
 
     const data = await response.json();
-    console.log("data", data);
     const token = data.jwt;
     if (!token) {
       return res
