@@ -14,6 +14,7 @@ import Icon from "@mdi/react";
 import { mdiCartOutline, mdiMagnify } from "@mdi/js";
 import { AcmeLogo } from "./AcmeLogo.jsx";
 import ProductsPopover, { Category } from "./ProductsPopover";
+import LoginLogoutButtom from "./buttons/loginLogout";
 
 export default function NavbarHome() {
   const menuItemsRoutes = {
@@ -85,16 +86,7 @@ export default function NavbarHome() {
               </NavbarItem>
             ))}
             <div className="flex items-center gap-2">
-              <Link href="/user/auth">
-                <Button
-                  size="sm"
-                  color="primary"
-                  variant="solid"
-                  className=" font-bold"
-                >
-                  Iniciar sesión
-                </Button>
-              </Link>
+              <LoginLogoutButtom />
 
               <Icon path={mdiMagnify} size={1} />
               <Icon path={mdiCartOutline} size={1} />
