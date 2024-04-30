@@ -3,10 +3,11 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { FaEyeSlash } from "react-icons/fa";
 import { BsEyeFill } from "react-icons/bs";
+import { useAuth } from "@/hooks/useAuth";
 
 export default function Auth() {
   const [credentials, setCredentials] = useState({ email: "", password: "" });
-  const router = useRouter();
+  const { login } = useAuth();
   const [error, setError] = useState("");
   const [isVisible, setIsVisible] = useState(false);
 
@@ -18,11 +19,23 @@ export default function Auth() {
   const isEmailInvalid =
     !validateEmail(credentials.email) && credentials.email !== "";
 
-  const handleLogin = (e: { target: { name: string; value: string } }) => {
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setCredentials({
       ...credentials,
-      [e.target.name]: e.target.value,
+      [event.target.name]: event.target.value,
     });
+  };
+
+  const handleLogin = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault(); // prevent the form from submitting and refreshing the page
+    if (isEmailInvalid) {
+      setError("Por favor, ingrese un correo válido");
+      return;
+    }
+    login(credentials.email, credentials.password).catch((error) => {
+      setError("Error al iniciar sesión, intente de nuevo.");
+    });
+    setError("");
   };
 
   const toggleVisibility = () => setIsVisible(!isVisible);
@@ -33,11 +46,7 @@ export default function Auth() {
       <section className="w-full flex flex-row justify-center grow items-center">
         <Card>
           <CardBody className="flex flex-row justify-evenly gap-10 flex-wrap items-center w-[400px] sm:w-[600px] md:w-[800px] lg:w-[1000px]">
-            <form
-              method="post"
-              action="/api/auth/login"
-              className="flex flex-col gap-2"
-            >
+            <form onSubmit={handleLogin} className="flex flex-col gap-2">
               <h1 className="font-bold text-center">¡Bienvenido!</h1>
               <p>Usuario/correo:</p>
               <Input
@@ -52,7 +61,7 @@ export default function Auth() {
                 errorMessage={
                   isEmailInvalid && "Por favor, ingrese un correo válido"
                 }
-                onChange={handleLogin}
+                onChange={handleInputChange}
               />
               <p>Contraseña:</p>
               <Input
@@ -75,7 +84,7 @@ export default function Auth() {
                 name="password"
                 variant="bordered"
                 radius="full"
-                onChange={handleLogin}
+                onChange={handleInputChange}
               />
               <Button type="submit">Iniciar sesión</Button>
               {error && (

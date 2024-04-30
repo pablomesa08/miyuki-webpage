@@ -1,8 +1,8 @@
-import jwt from "jsonwebtoken";
+import { jwtVerify } from "jose";
 import Cookies from "js-cookie";
 import { NextApiRequest, NextApiResponse } from "next";
 
-const JWT_SECRET = process.env.JWT_SECRET || "";
+const JWT_SECRET = new TextEncoder().encode(process.env.JWT_SECRET ?? "");
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
@@ -13,14 +13,8 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     }
 
     // Assuming you have a function or a way to verify JWT
-    jwt.verify(token, JWT_SECRET, (err, decoded) => {
-      if (err) {
-        console.error("JWT verification failed", err);
-        return res.status(200).json({ isAuthenticated: false });
-      }
-      console.log("JWT decoded", decoded);
-      res.status(200).json({ isAuthenticated: true });
-    });
+    jwtVerify(token, JWT_SECRET);
+    return res.status(200).json({ isAuthenticated: true });
   } catch (error) {
     res.status(500).json({ error: "Internal server error" });
   }

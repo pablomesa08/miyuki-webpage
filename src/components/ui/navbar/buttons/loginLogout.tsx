@@ -1,8 +1,10 @@
 import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@nextui-org/react";
+import { useRouter } from "next/router";
 
 export default function LoginLogoutButton() {
-  const { isLoggedIn, login, logout, isLoading } = useAuth();
+  const { isLoggedIn, logout, isLoading } = useAuth();
+  const router = useRouter();
 
   if (isLoading) return <p>Loading...</p>;
 
@@ -12,7 +14,7 @@ export default function LoginLogoutButton() {
       color={isLoggedIn ? "danger" : "primary"}
       variant="solid"
       className="font-bold"
-      onClick={isLoggedIn ? logout : login}
+      onClick={isLoggedIn ? logout : () => router.push("/user/auth")}
     >
       {isLoggedIn ? "Logout" : "Login"}
     </Button>
