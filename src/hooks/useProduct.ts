@@ -14,11 +14,7 @@ export function useProduct(): UseProductReturn {
     console.log(data);
     const product: ProductData = {
       name: data.name,
-      description: data.description,
       basePrice: data.baseprice,
-      price: parseFloat(data.price), // Make sure to convert string to number if needed
-      stock: data.stock,
-      mass: data.mass,
       addedDate: new Date(data.addeddate), // Assuming 'addeddate' is the API's date field
       image: "https://via.placeholder.com/300x250", //image from pexels
       colorSets: data.colorsets.map((set: any) => ({
