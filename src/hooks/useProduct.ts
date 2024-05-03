@@ -1,8 +1,9 @@
-import { ProductData } from "@/types/productType";
+import { ProductData, ProductFavorite } from "@/types/productType";
 import useSWR, { mutate } from "swr";
 
 type UseProductReturn = {
   getProductById: (id: string) => Promise<ProductData>;
+  getFavoriteProducts: () => Promise<ProductData[]>;
 };
 
 export function useProduct(): UseProductReturn {
@@ -38,5 +39,18 @@ export function useProduct(): UseProductReturn {
     return product;
   };
 
-  return { getProductById };
+  const getFavoriteProducts = async () => {
+    const response = await fetch("/api/product/favorite", { method: "POST" });
+    const data = await response.json();
+    mutate("/api/product/favorite", data, false);
+    const datamap = data.map((product: ProductFavorite) => ({
+      id: product.id,
+      name: product.name,
+      image: "https://source.unsplash.com/random/200x200", //TODO: replace with actual image
+    }));
+    console.log(datamap);
+    return datamap;
+  };
+
+  return { getProductById, getFavoriteProducts };
 }

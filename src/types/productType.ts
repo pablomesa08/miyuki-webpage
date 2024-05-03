@@ -26,3 +26,9 @@ export type ProductData = {
   colorSets: ColorSet[];
   image: string;
 };
+
+export type ProductFavorite = {
+  id: string;
+  name: string;
+  image: string;
+};
