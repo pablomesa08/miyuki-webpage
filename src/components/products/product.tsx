@@ -1,5 +1,5 @@
 import { Button, ButtonGroup, Card, CardBody, Image } from "@nextui-org/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Format, ProductData, ColorSet } from "@/types/productType";
 import { getPath } from "./colorWheel";
 import FavoriteIcon from "./favoriteIcon";

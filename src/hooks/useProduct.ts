@@ -1,5 +1,6 @@
 import { ProductData, ProductFavorite } from "@/types/productType";
-import { mutate } from "swr";
+import useSWR, { mutate } from "swr";
+import { useCallback } from "react";
 
 type UseProductReturn = {
   getProductById: (id: string) => Promise<ProductData>;
@@ -9,47 +10,64 @@ type UseProductReturn = {
 };
 
 export function useProduct(): UseProductReturn {
-  // Cache para evitar llamadas redundantes al servidor
-  const productCache = new Map<string, ProductData>();
-  let favoriteProductsCache: ProductData[] | null = null;
+  const { data: productCache, mutate: mutateProduct } = useSWR<
+    Map<string, ProductData>
+  >("/product-cache", null, {
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false,
+  });
 
-  const getProductById = async (id: string) => {
-    if (productCache.has(id)) {
-      return productCache.get(id)!;
-    }
+  const { data: favoriteProductsCache, mutate: mutateFavorites } = useSWR<
+    ProductData[]
+  >("/favorites-cache", null, {
+    fallbackData: [],
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false,
+    dedupingInterval: 2000, // Espera 2 segundos antes de permitir otra solicitud
+  });
 
-    const response = await fetch(`/api/product/${id}`);
-    const data = await response.json();
-    const product: ProductData = {
-      name: data.name,
-      basePrice: data.baseprice,
-      addedDate: new Date(data.addeddate),
-      image: "https://via.placeholder.com/300x250",
-      colorSets: data.colorsets.map((set: any) => ({
-        name: set.name,
-        colors: set.colors,
-      })),
-      formats: data.formats.map((format: any) => ({
-        id: format.id,
-        name: format.name,
-        price: parseFloat(format.price),
-      })),
-      id: data.id,
-      isAvailable: data.isavailable,
-      categories: data.categories.map((category: any) => ({
-        id: category.id,
-        name: category.name,
-      })),
-    };
+  const getProductById = useCallback(
+    async (id: string) => {
+      console.log("getting product by id");
+      if (productCache?.has(id)) {
+        return productCache.get(id)!;
+      }
 
-    productCache.set(id, product);
-    mutate(`/api/product/${id}`, product, false);
+      const response = await fetch(`/api/product/${id}`);
+      const data = await response.json();
+      const product: ProductData = {
+        name: data.name,
+        basePrice: data.baseprice,
+        addedDate: new Date(data.addeddate),
+        image: "https://via.placeholder.com/300x250",
+        colorSets: data.colorsets.map((set: any) => ({
+          name: set.name,
+          colors: set.colors,
+        })),
+        formats: data.formats.map((format: any) => ({
+          id: format.id,
+          name: format.name,
+          price: parseFloat(format.price),
+        })),
+        id: data.id,
+        isAvailable: data.isavailable,
+        categories: data.categories.map((category: any) => ({
+          id: category.id,
+          name: category.name,
+        })),
+      };
 
-    return product;
-  };
+      productCache?.set(id, product);
+      mutateProduct(productCache, false);
 
-  const getFavoriteProducts = async (): Promise<ProductData[]> => {
-    if (favoriteProductsCache) {
+      return product;
+    },
+    [productCache, mutateProduct]
+  );
+
+  const getFavoriteProducts = useCallback(async (): Promise<ProductData[]> => {
+    console.log("getting all favorite products");
+    if (favoriteProductsCache && favoriteProductsCache.length > 0) {
       return favoriteProductsCache;
     }
 
@@ -57,6 +75,7 @@ export function useProduct(): UseProductReturn {
       method: "POST",
       body: "{}",
     });
+
     const data = await response.json();
     const favorites = data.map((product: ProductFavorite) => ({
       id: product.id,
@@ -64,30 +83,33 @@ export function useProduct(): UseProductReturn {
       image: "https://source.unsplash.com/random/200x200",
     }));
 
-    favoriteProductsCache = favorites;
-    mutate("/api/product/favorite", favorites, false);
+    mutateFavorites(favorites, false);
 
     return favorites;
-  };
+  }, [favoriteProductsCache, mutateFavorites]);
 
-  const getFavoriteProductId = async (productId: string) => {
-    const favorites = await getFavoriteProducts();
-    return favorites.some((product) => product.id === productId);
-  };
+  const getFavoriteProductId = useCallback(
+    async (productId: string) => {
+      const favorites = await getFavoriteProducts();
+      return favorites.some((product) => product.id === productId);
+    },
+    [getFavoriteProducts]
+  );
 
-  const setFavoriteProduct = async (productId: string, status: boolean) => {
-    const response = await fetch("/api/product/favorite", {
-      method: "POST",
-      body: JSON.stringify({ productId, status }),
-    });
+  const setFavoriteProduct = useCallback(
+    async (productId: string, status: boolean) => {
+      console.log("changing favorite product of id", productId);
+      const response = await fetch("/api/product/favorite", {
+        method: "POST",
+        body: JSON.stringify({ productId, status }),
+      });
 
-    if (response.ok) {
-      // Limpiamos la caché de productos favoritos
-      favoriteProductsCache = null;
-      const data = await response.json();
-      mutate("/api/product/favorite", data, false);
-    }
-  };
+      if (response.ok) {
+        mutateFavorites([], false);
+      }
+    },
+    [mutateFavorites]
+  );
 
   return {
     getProductById,
