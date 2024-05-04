@@ -10,6 +10,7 @@ export default async function handler(
 
   // The second get is for a single product
   if (req.method === "GET" && req.query.product) {
+    console.log("getting product by id");
     // Get the product id from the query
     const productId = req.query.product[0];
     // Get the product data from the database

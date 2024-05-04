@@ -1,23 +1,30 @@
 import { ProductData, ProductFavorite } from "@/types/productType";
-import useSWR, { mutate } from "swr";
+import { mutate } from "swr";
 
 type UseProductReturn = {
   getProductById: (id: string) => Promise<ProductData>;
   getFavoriteProducts: () => Promise<ProductData[]>;
+  getFavoriteProductId: (productId: string) => Promise<boolean>;
+  setFavoriteProduct: (productId: string, status: boolean) => Promise<void>;
 };
 
 export function useProduct(): UseProductReturn {
-  const getProductById = async (id: string) => {
-    const response = await fetch(`/api/product/${id}`);
+  // Cache para evitar llamadas redundantes al servidor
+  const productCache = new Map<string, ProductData>();
+  let favoriteProductsCache: ProductData[] | null = null;
 
-    // Await the product data from the response
+  const getProductById = async (id: string) => {
+    if (productCache.has(id)) {
+      return productCache.get(id)!;
+    }
+
+    const response = await fetch(`/api/product/${id}`);
     const data = await response.json();
-    console.log(data);
     const product: ProductData = {
       name: data.name,
       basePrice: data.baseprice,
-      addedDate: new Date(data.addeddate), // Assuming 'addeddate' is the API's date field
-      image: "https://via.placeholder.com/300x250", //image from pexels
+      addedDate: new Date(data.addeddate),
+      image: "https://via.placeholder.com/300x250",
       colorSets: data.colorsets.map((set: any) => ({
         name: set.name,
         colors: set.colors,
@@ -34,23 +41,58 @@ export function useProduct(): UseProductReturn {
         name: category.name,
       })),
     };
-    console.log(product);
+
+    productCache.set(id, product);
     mutate(`/api/product/${id}`, product, false);
+
     return product;
   };
 
-  const getFavoriteProducts = async () => {
-    const response = await fetch("/api/product/favorite", { method: "POST" });
+  const getFavoriteProducts = async (): Promise<ProductData[]> => {
+    if (favoriteProductsCache) {
+      return favoriteProductsCache;
+    }
+
+    const response = await fetch("/api/product/favorite", {
+      method: "POST",
+      body: "{}",
+    });
     const data = await response.json();
-    mutate("/api/product/favorite", data, false);
-    const datamap = data.map((product: ProductFavorite) => ({
+    const favorites = data.map((product: ProductFavorite) => ({
       id: product.id,
       name: product.name,
-      image: "https://source.unsplash.com/random/200x200", //TODO: replace with actual image
+      image: "https://source.unsplash.com/random/200x200",
     }));
-    console.log(datamap);
-    return datamap;
+
+    favoriteProductsCache = favorites;
+    mutate("/api/product/favorite", favorites, false);
+
+    return favorites;
   };
 
-  return { getProductById, getFavoriteProducts };
+  const getFavoriteProductId = async (productId: string) => {
+    const favorites = await getFavoriteProducts();
+    return favorites.some((product) => product.id === productId);
+  };
+
+  const setFavoriteProduct = async (productId: string, status: boolean) => {
+    const response = await fetch("/api/product/favorite", {
+      method: "POST",
+      body: JSON.stringify({ productId, status }),
+    });
+
+    if (response.ok) {
+      // Limpiamos la caché de productos favoritos
+      favoriteProductsCache = null;
+      const data = await response.json();
+      mutate("/api/product/favorite", data, false);
+    }
+  };
+
+  return {
+    getProductById,
+    getFavoriteProducts,
+    getFavoriteProductId,
+    setFavoriteProduct,
+  };
 }
