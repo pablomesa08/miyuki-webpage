@@ -30,7 +30,7 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/user/protected", "/user/auth", "/user/register"],
+  matcher: ["/user/protected", "/user/auth", "/user/register", "/user/profile"],
 };
 
 // Function to verify the token; implement according to your auth logic

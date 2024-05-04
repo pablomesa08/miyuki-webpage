@@ -1,8 +1,8 @@
 import { Button, ButtonGroup, Card, CardBody, Image } from "@nextui-org/react";
-import { HeartIcon } from "../ui/icons/HeartIcon.jsx";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Format, ProductData, ColorSet } from "@/types/productType";
 import { getPath } from "./colorWheel";
+import FavoriteIcon from "./favoriteIcon";
 
 export default function ProductComponent({
   product,
@@ -48,15 +48,7 @@ export default function ProductComponent({
                 ) : (
                   <></>
                 )}
-                <Button isIconOnly color="danger" aria-label="Like">
-                  <HeartIcon
-                    filled={undefined}
-                    size={undefined}
-                    height={undefined}
-                    width={undefined}
-                    label={undefined}
-                  />
-                </Button>
+                <FavoriteIcon productId={product.id} />
               </div>
             </div>
 
