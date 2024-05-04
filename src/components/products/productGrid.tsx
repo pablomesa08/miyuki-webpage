@@ -1,53 +1,36 @@
 import React from "react";
 import { Card, CardBody, CardFooter, Image } from "@nextui-org/react";
 import { useRouter } from "next/router";
+import { ProductIdNameImage } from "@/types/productType";
 
-export default function ProductGrid() {
+export default function ProductGrid({
+  products,
+}: {
+  products: ProductIdNameImage[];
+}) {
   const router = useRouter();
-  const list = [
-    {
-      title: "Orange",
-      img: "https://source.unsplash.com/random/200x200",
-      price: "$5.50",
-      uuid: "1",
-    },
-    {
-      title: "Tangerine",
-      img: "https://source.unsplash.com/random/200x200",
-      price: "$3.00",
-      uuid: "2",
-    },
-    {
-      title: "Raspberry",
-      img: "https://source.unsplash.com/random/200x200",
-      price: "$10.00",
-      uuid: "3",
-    },
-  ];
 
   return (
     <div className="flex flex-row flex-wrap gap-10 justify-center">
-      {list.map((item, index) => (
+      {products.map((item, index) => (
         <Card
           shadow="sm"
           key={index}
           isPressable
-          onPress={() =>
-            router.push(`/products/product?productId=${item.uuid}`)
-          }
+          onPress={() => router.push(`/products/product?productId=${item.id}`)}
         >
           <CardBody className="overflow-visible p-0">
             <Image
               shadow="sm"
               radius="lg"
               width="100%"
-              alt={item.title}
+              alt={item.name}
               className="object-cover h-[250px] max-w-[250px]"
-              src={item.img}
+              src={item.image}
             />
           </CardBody>
           <CardFooter className=" text-small justify-between">
-            <b>{item.title}</b>
+            <b>{item.name}</b>
           </CardFooter>
         </Card>
       ))}

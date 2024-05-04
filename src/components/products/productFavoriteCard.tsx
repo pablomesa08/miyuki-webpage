@@ -1,11 +1,11 @@
-import { ProductFavorite } from "@/types/productType";
+import { ProductIdNameImage } from "@/types/productType";
 import { Card, CardBody, CardFooter, Image } from "@nextui-org/react";
 
 import { useRouter } from "next/router";
 
 export default function ProductFavoriteCard({
   product,
-}: Readonly<{ product: ProductFavorite[] }>) {
+}: Readonly<{ product: ProductIdNameImage[] }>) {
   const router = useRouter();
   return (
     <div>

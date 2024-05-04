@@ -1,4 +1,8 @@
-import { ProductData, ProductFavorite } from "@/types/productType";
+import {
+  ProductData,
+  ProductGridType,
+  ProductIdNameImage,
+} from "@/types/productType";
 import useSWR, { mutate } from "swr";
 import { useCallback } from "react";
 
@@ -7,6 +11,7 @@ type UseProductReturn = {
   getFavoriteProducts: () => Promise<ProductData[]>;
   getFavoriteProductId: (productId: string) => Promise<boolean>;
   setFavoriteProduct: (productId: string, status: boolean) => Promise<void>;
+  getAllProducts: () => Promise<ProductGridType[]>;
 };
 
 export function useProduct(): UseProductReturn {
@@ -24,6 +29,13 @@ export function useProduct(): UseProductReturn {
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
     dedupingInterval: 2000, // Espera 2 segundos antes de permitir otra solicitud
+  });
+
+  const { data: allProductsCache, mutate: mutateAllProducts } = useSWR<
+    ProductGridType[]
+  >("/all-products-cache", null, {
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false,
   });
 
   const getProductById = useCallback(
@@ -77,7 +89,7 @@ export function useProduct(): UseProductReturn {
     });
 
     const data = await response.json();
-    const favorites = data.map((product: ProductFavorite) => ({
+    const favorites = data.map((product: ProductIdNameImage) => ({
       id: product.id,
       name: product.name,
       image: "https://source.unsplash.com/random/200x200",
@@ -111,10 +123,30 @@ export function useProduct(): UseProductReturn {
     [mutateFavorites]
   );
 
+  const getAllProducts = useCallback(async () => {
+    console.log("getting all products in the hook");
+    const response = await fetch(`/api/product/`);
+
+    // map the response to  ProductIdNameImage array
+    const data = await response.json();
+    const products: ProductGridType[] = data.map(
+      (product: ProductGridType) => ({
+        id: product.id,
+        name: product.name,
+        image: "https://source.unsplash.com/random/200x200",
+        basePrice: product.basePrice,
+      })
+    );
+
+    mutateAllProducts(products, false);
+
+    return products;
+  }, [mutateAllProducts]);
   return {
     getProductById,
     getFavoriteProducts,
     getFavoriteProductId,
     setFavoriteProduct,
+    getAllProducts,
   };
 }

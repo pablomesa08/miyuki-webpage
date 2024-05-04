@@ -1,12 +1,12 @@
 import ProductFavoriteCard from "@/components/products/productFavoriteCard";
 import NavbarHome from "@/components/ui/navbar/navbarHome";
 import { useProduct } from "@/hooks/useProduct";
-import { ProductFavorite } from "@/types/productType";
+import { ProductIdNameImage } from "@/types/productType";
 import { useEffect, useState } from "react";
 
 export default function Profile() {
   const { getFavoriteProducts } = useProduct();
-  const [favorites, setProduct] = useState<ProductFavorite[] | null>(null);
+  const [favorites, setProduct] = useState<ProductIdNameImage[] | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 

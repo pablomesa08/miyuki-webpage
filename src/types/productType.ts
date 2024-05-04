@@ -27,8 +27,15 @@ export type ProductData = {
   image: string;
 };
 
-export type ProductFavorite = {
+export type ProductIdNameImage = {
   id: string;
   name: string;
   image: string;
+};
+
+export type ProductGridType = {
+  id: string;
+  name: string;
+  image: string;
+  basePrice: number;
 };
