@@ -39,3 +39,13 @@ export type ProductGridType = {
   image: string;
   basePrice: number;
 };
+
+export type ProductCartType = {
+  id: string;
+  name: string;
+  image: string;
+  basePrice: number;
+  format: Format;
+  colorSet: ColorSet;
+  quantity: number;
+};

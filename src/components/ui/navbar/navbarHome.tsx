@@ -15,8 +15,11 @@ import { mdiCartOutline, mdiMagnify } from "@mdi/js";
 import { AcmeLogo } from "./AcmeLogo.jsx";
 import ProductsPopover, { Category } from "./ProductsPopover";
 import LoginLogoutButtom from "./buttons/loginLogout";
+import { useRouter } from "next/router";
+import ProfileButton from "./buttons/profileButton";
 
 export default function NavbarHome() {
+  const router = useRouter();
   const menuItemsRoutes = {
     Promociones: "/products/tag?tag=promociones",
     Conócenos: "/contact",
@@ -89,7 +92,15 @@ export default function NavbarHome() {
               <LoginLogoutButtom />
 
               <Icon path={mdiMagnify} size={1} />
-              <Icon path={mdiCartOutline} size={1} />
+              <Button
+                onClick={() => {
+                  router.push("/user/cart");
+                }}
+                isIconOnly
+              >
+                <Icon path={mdiCartOutline} size={1} />
+              </Button>
+              <ProfileButton />
             </div>
           </div>
         </NavbarContent>
