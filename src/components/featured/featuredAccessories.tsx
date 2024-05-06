@@ -22,11 +22,11 @@ export default function FeaturedAccessories() {
   ];
 
   return (
-    <section>
-      <h1 className="text-2xl font-bold text-center">
+    <section className="p-4">
+      <h1 className="text-4xl font-bold text-center text-white">
         Compra nuestros accesorios
       </h1>
-      <div style={{ display: 'flex', justifyContent: 'space-around', width: '600px' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-around', width: 'full' }}>
       <ThreeImageGallery imageInfoArray={accessories} />
       </div>
       

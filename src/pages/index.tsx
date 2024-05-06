@@ -33,7 +33,10 @@ export default function Page() {
         
         <div className="w-full max-w-screen-xl mx-auto">
         <FeaturedProduct />
+        <div className="bg-focus">
         <FeaturedAccessories />
+        </div>
+        
         <article className="mt-5">
           <h1 className="text-2xl text-center mb-5">
             Favoritos de nuestros clientes
