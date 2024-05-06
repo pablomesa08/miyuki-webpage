@@ -89,7 +89,10 @@ export default function NavbarHome() {
               <LoginLogoutButtom />
 
               <Icon path={mdiMagnify} size={1} />
-              <Icon path={mdiCartOutline} size={1} />
+              {/* Envolver el ícono del carrito en un enlace */}
+              <Link href="/cartPage">
+                <Icon path={mdiCartOutline} size={1} />
+              </Link>
             </div>
           </div>
         </NavbarContent>
