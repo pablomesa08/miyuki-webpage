@@ -49,7 +49,7 @@ const config: Config = {
               50: "#EFEEEF",
               100: "#D9D9D9",
               200: "#EEEEEE",
-              300: "#9AC1CD",
+              300: "#F6F6F6",
               400: "#4F95A7",
               500: "#F8F7FF",
 

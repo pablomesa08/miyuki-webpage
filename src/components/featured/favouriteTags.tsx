@@ -1,6 +1,6 @@
-import ThreeImageGallery, {
-  ImageInfo,
-} from "../ui/groupImages/threeImageGallery";
+import React from 'react';
+import ThreeImageGallery, { ImageInfo } from "../ui/groupImages/threeImageGallery";
+
 export default function FavouriteTags() {
   const accessories: ImageInfo[] = [
     {
@@ -21,10 +21,10 @@ export default function FavouriteTags() {
   ];
 
   return (
-    <section>
-      <h1 className="text-2xl font-bold text-center">Etiquetas favoritas</h1>
-      <div style={{ display: 'flex', justifyContent: 'space-around', width: '600px' }}>
-      <ThreeImageGallery imageInfoArray={accessories} />
+    <section className="flex justify-center items-center w-full">
+      <h1 className="text-2xl font-bold text-center mb-6">Etiquetas favoritas</h1>
+      <div className="flex justify-around w-full mx-auto">
+        <ThreeImageGallery imageInfoArray={accessories} />
       </div>
       
     </section>
