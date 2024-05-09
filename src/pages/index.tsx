@@ -26,29 +26,26 @@ export default function Page() {
   ];
 
   return (
-    <div>
+    <div className="flex flex-col w-full m-0 p-0">
       <NavbarHome />
-      <div className="mt-5"></div>
-      <section className="flex flex-col  items-center w-full">
-        
-        <div className="w-full max-w-screen-xl mx-auto">
-        <FeaturedProduct />
-        <div className="bg-focus">
-        <FeaturedAccessories />
-        </div>
-        
-        <article className="mt-5">
-          <h1 className="text-2xl text-center mb-5">
-            Favoritos de nuestros clientes
-          </h1>
-          <div style={{ display: 'flex', justifyContent: 'space-around' }}>
-            <EmblaCarousel slides={favouriteClients} options={OPTIONS} />
+
+      <section className="flex flex-col items-center w-full">
+        <div className="w-full mx-auto">
+          <FeaturedProduct />
+          <div className="bg-focus">
+            <FeaturedAccessories />
           </div>
-        </article>
-        <FavouriteTags />
-        <FeaturedSocialMedia />
-      </div>
-      
+          <article className="mt-5">
+            <h1 className="text-2xl text-center mb-5">
+              Favoritos de nuestros clientes
+            </h1>
+            <div className="flex flex-col justify-center items-center">
+              <EmblaCarousel slides={favouriteClients} options={OPTIONS} />
+            </div>
+          </article>
+          <FavouriteTags />
+          <FeaturedSocialMedia />
+        </div>
       </section>
       <Footer />
     </div>

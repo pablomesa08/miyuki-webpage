@@ -27,7 +27,7 @@ export default function FeaturedAccessories() {
         Compra nuestros accesorios
       </h1>
       <div style={{ display: 'flex', justifyContent: 'space-around', width: 'full' }}>
-      <ThreeImageGallery imageInfoArray={accessories} />
+      <ThreeImageGallery imageInfoArray={accessories} textColor="text-white" />
       </div>
       
     </section>

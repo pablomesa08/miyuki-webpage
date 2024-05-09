@@ -5,28 +5,30 @@ export default function FeaturedSocialMedia() {
     image: "/Images/backround/azul.png",
   };
 
-  return (
-    <Card className="border-none maw-w-[610px] bg-transparent mt-5">
-      <CardBody>
-        <div className="flex flex-row items-center gap-10">
-          <div className="flex flex-col w-1/2 items-center">
-            <Image
-              alt="An image of a product"
-              src={socialMedia.image}
-              width={300}
-              height={250}
-            />
-          </div>
-          <div className="flex flex-col  max-w-[350px] gap-2 items-center">
-            <h1 className="text-2xl font-bold text-center">
-              Siguenos en redes sociales
-            </h1>
-            <Button className="w-24 font-bold bg-primary text-focus" color="success">
-              Instagram
-            </Button>
-          </div>
+  return (<Card className="border-none max-w-full bg-transparent shadow-none">
+    <CardBody>
+      <div className="flex flex-col md:flex-row justify-center items-center gap-5 md:gap-10 p-4 w-full">
+        <div className="w-full md: w-3/5 flex justify-center md:justify-start">
+          <Image
+            alt="An image of the instagram"
+            src={socialMedia.image}
+            width="524px"
+            height="300px"
+          />
         </div>
-      </CardBody>
-    </Card>
+        <div className="flex flex-col justify-center items-center md:items-start text-center md:text-left gap-4 md:gap-8 w-full md:w-1/2">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold">
+            Siguenos en redes sociales  
+          </h1>
+          <Button className="w-260px h-380px font-bold text-lg bg-primary text-focus" color="success">
+          Instagram
+          </Button>
+        </div>
+      </div>
+    </CardBody>
+  </Card>
+
+
+
   );
 }
