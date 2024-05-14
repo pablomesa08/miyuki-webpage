@@ -15,19 +15,22 @@ type PropType = {
   options?: EmblaOptionsType;
 };
 
+// Extendemos el tipo para incluir la opción stopOnInteraction
+interface ExtendedAutoplayOptions {
+  stopOnInteraction?: boolean;
+  reset: () => void;
+  stop: () => void;
+}
+
 const EmblaCarousel: React.FC<PropType> = (props) => {
   const { slides, options } = props;
-  const [emblaRef, emblaApi] = useEmblaCarousel(options, [Autoplay()]);
+  const [emblaRef, emblaApi] = useEmblaCarousel(options, [Autoplay({ stopOnInteraction: false })]);
 
   const onNavButtonClick = useCallback((emblaApi: EmblaCarouselType) => {
-    const autoplay = emblaApi?.plugins()?.autoplay;
+    const autoplay = emblaApi?.plugins()?.autoplay as unknown as ExtendedAutoplayOptions;
     if (!autoplay) return;
 
-    const resetOrStop =
-      autoplay.options.stopOnInteraction === false
-        ? autoplay.reset
-        : autoplay.stop;
-
+    const resetOrStop = autoplay.stopOnInteraction === false ? autoplay.reset : autoplay.stop;
     resetOrStop();
   }, []);
 

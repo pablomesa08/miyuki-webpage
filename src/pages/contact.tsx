@@ -1,6 +1,4 @@
-import ThreeImageGallery, {
-  ImageInfo,
-} from "@/components/ui/groupImages/threeImageGallery";
+import ThreeImageGallery, { ImageInfo } from "@/components/ui/groupImages/threeImageGallery";
 import Footer from "@/components/ui/navbar/footer";
 import NavbarHome from "@/components/ui/navbar/navbarHome";
 import { Card, CardBody, CardHeader, Image } from "@nextui-org/react";
@@ -41,6 +39,7 @@ export default function Contact() {
       imageDescription: "",
     },
   ];
+
   return (
     <div>
       <NavbarHome />
@@ -64,7 +63,7 @@ export default function Contact() {
             src="https://source.unsplash.com/random/800x600"
           />
         </Card>
-        <ThreeImageGallery imageInfoArray={characteristics} />
+        <ThreeImageGallery imageInfoArray={characteristics} textColor="text-black" />
         <Card className="mt-7 ">
           <CardBody className=" max-w-[600px] text-justify">
             <p>
@@ -86,7 +85,7 @@ export default function Contact() {
           <h1 className="text-2xl font-bold text-center">
             Conoce a nuestros artesanos
           </h1>
-          <ThreeImageGallery imageInfoArray={artisans} />
+          <ThreeImageGallery imageInfoArray={artisans} textColor="text-black" />
         </article>
       </section>
       <Footer />
