@@ -3,7 +3,7 @@ import CartItem from '../components/cart/cartItem';
 import CartSummary from '../components/cart/CartSummary';
 import NavbarHome from '@/components/ui/navbar/navbarHome';
 import Footer from '@/components/ui/navbar/footer';
-import { Format, ColorSet } from "@/types/productType"; // Asegúrate de que estos tipos están correctamente importados.
+import { Format, ColorSet } from "@/types/productType"; 
 
 interface Product {
   id: number;
@@ -12,9 +12,8 @@ interface Product {
   color: string;
   quantity: number;
   image: string;
-  colorSets: ColorSet[]; // Asegúrate de que la propiedad colorSets existe.
-  formats: Format[]; // Asegúrate de que la propiedad formats existe.
-  
+  colorSets: ColorSet[];
+  formats: Format[]; 
 }
 
 const CartPage: React.FC = () => {
