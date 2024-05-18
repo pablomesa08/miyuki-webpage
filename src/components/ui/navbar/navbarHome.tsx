@@ -73,17 +73,17 @@ export default function NavbarHome() {
         <NavbarContent className="hidden mt-2 sm:flex gap-20" justify="center">
           <div className="flex items-center ">
             <AcmeLogo />
-            <Link href="/" color="foreground">
+            <Link href="/" color="primary">
               <p className="font-bold text-inherit">LOGO</p>
             </Link>
           </div>
           <div className="flex flex-row items-center gap-3">
             <NavbarMenuItem className="flex flex-row items-center">
-              <ProductsPopover categories={categories} />
+              <ProductsPopover categories={categories}  />
             </NavbarMenuItem>
             {Object.entries(menuItemsRoutes).map(([item, href], index) => (
               <NavbarItem key={href}>
-                <Link color="foreground" href={href}>
+                <Link className="text-primary-50" href={href}>
                   {item}
                 </Link>
               </NavbarItem>
@@ -101,6 +101,10 @@ export default function NavbarHome() {
                 <Icon path={mdiCartOutline} size={1} />
               </Button>
               <ProfileButton />
+              {/* Envolver el ícono del carrito en un enlace */}
+              <Link href="/cartPage">
+                <Icon path={mdiCartOutline} size={1} />
+              </Link>
             </div>
           </div>
         </NavbarContent>
