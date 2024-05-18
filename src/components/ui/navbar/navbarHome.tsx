@@ -10,7 +10,7 @@ import {
   Link,
 } from "@nextui-org/react";
 import Icon from "@mdi/react";
-import { mdiCartOutline, mdiMagnify } from "@mdi/js";
+import { mdiCartOutline, mdiAccountOutline } from "@mdi/js";
 import { AcmeLogo } from "./AcmeLogo.jsx";
 import LoginLogoutButtom from "./buttons/loginLogout";
 import ProductsPopover, { Category } from "./ProductsPopover";
@@ -84,7 +84,9 @@ export default function NavbarHome() {
         {/* Action items */}
         <div className="flex items-center space-x-4">
           <LoginLogoutButtom />
-          <Icon path={mdiMagnify} size={1} />
+          <Link href="/profile">
+            <Icon path={mdiAccountOutline} size={1} />
+          </Link>
           <Link href="/cartPage">
             <Icon path={mdiCartOutline} size={1} />
           </Link>

@@ -18,24 +18,21 @@ const profile: React.FC = () => {
     { id: 3, name: 'Producto 3', format: '#125', color: 'purple', price: 200.00 },
   ];
   
-
   return (
     <div className="flex flex-col min-h-[100vh] justify-between">
       <NavbarHome />
       <main>
         <div className="container mx-auto p-4 grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="col-span-1">
-          <UserProfile user={user} />
+          <div className="col-span-1">
+            <UserProfile user={user} />
+          </div>
+          <div className="col-span-2">
+            <Wishlist products={wishlistProducts} />
+          </div>
         </div>
-        <div className="col-span-2">
-          <Wishlist products={wishlistProducts} />
-        </div>
-      </div>
       </main>
       <Footer />
     </div>
-    
-    
   );
 };
 
