@@ -27,7 +27,7 @@ export default function Page() {
 
   return (
     <div className="flex flex-col w-full m-0 p-0">
-      <NavbarHome />
+      <NavbarHome/>
 
       <section className="flex flex-col items-center w-full">
         <div className="w-full mx-auto">

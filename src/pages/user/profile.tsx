@@ -23,7 +23,7 @@ const profile: React.FC = () => {
       price: 200.0,
     },
   ];
-
+  
   return (
     <div className="flex flex-col min-h-[100vh] justify-between">
       <NavbarHome />

@@ -8,15 +8,12 @@ import {
   NavbarContent,
   NavbarItem,
   Link,
-  Button,
 } from "@nextui-org/react";
 import Icon from "@mdi/react";
-import { mdiCartOutline, mdiMagnify } from "@mdi/js";
+import { mdiCartOutline, mdiAccountOutline } from "@mdi/js";
 import { AcmeLogo } from "./AcmeLogo.jsx";
-import ProductsPopover, { Category } from "./ProductsPopover";
 import LoginLogoutButtom from "./buttons/loginLogout";
-import { useRouter } from "next/router";
-import ProfileButton from "./buttons/profileButton";
+import ProductsPopover, { Category } from "./ProductsPopover";
 
 export default function NavbarHome() {
   const router = useRouter();
@@ -63,61 +60,51 @@ export default function NavbarHome() {
   ];
 
   return (
-    <NextUINavbar isBordered position="static" height="7rem">
-      <NavbarContent className="sm:hidden" justify="start">
-        <NavbarMenuToggle />
-      </NavbarContent>
+    <NextUINavbar isBordered position="static" height="7rem" className="w-full mx-0 px-0">
+      <div className="flex flex-row items-center w-full justify-between mx-0 px-4">
+        {/* Logo container */}
+        <div className="flex items-center space-x-4">
+          <AcmeLogo />
+          <Link href="/" color="primary">
+            <p className="font-bold text-inherit">LOGO</p>
+          </Link>
+        </div>
 
-      <div className="flex-col w-full">
-        <div className="flex w-full items-center"></div>
-        <NavbarContent className="hidden mt-2 sm:flex gap-20" justify="center">
-          <div className="flex items-center ">
-            <AcmeLogo />
-            <Link href="/" color="primary">
-              <p className="font-bold text-inherit">LOGO</p>
-            </Link>
-          </div>
-          <div className="flex flex-row items-center gap-3">
-            <NavbarMenuItem className="flex flex-row items-center">
-              <ProductsPopover categories={categories}  />
-            </NavbarMenuItem>
-            {Object.entries(menuItemsRoutes).map(([item, href], index) => (
-              <NavbarItem key={href}>
-                <Link className="text-primary-50" href={href}>
-                  {item}
-                </Link>
-              </NavbarItem>
-            ))}
-            <div className="flex items-center gap-2">
-              <LoginLogoutButtom />
-
-              <Icon path={mdiMagnify} size={1} />
-              <Button
-                onClick={() => {
-                  router.push("/user/cart");
-                }}
-                isIconOnly
-              >
-                <Icon path={mdiCartOutline} size={1} />
-              </Button>
-              <ProfileButton />
-              {/* Envolver el ícono del carrito en un enlace */}
-              <Link href="/cartPage">
-                <Icon path={mdiCartOutline} size={1} />
+        {/* Navigation links */}
+        <div className="hidden md:flex flex-grow justify-start space-x-4 ml-4">
+          <ProductsPopover categories={categories} />
+          {Object.entries(menuItemsRoutes).map(([item, href]) => (
+            <NavbarItem key={href}>
+              <Link className="text-primary-50" href={href}>
+                {item}
               </Link>
-            </div>
-          </div>
-        </NavbarContent>
-      </div>
+            </NavbarItem>
+          ))}
+        </div>
 
+        {/* Action items */}
+        <div className="flex items-center space-x-4">
+          <LoginLogoutButtom />
+          <Link href="/profile">
+            <Icon path={mdiAccountOutline} size={1} />
+          </Link>
+          <Link href="/cartPage">
+            <Icon path={mdiCartOutline} size={1} />
+          </Link>
+          {/* Menu toggle for small screens */}
+          <NavbarMenuToggle className="md:hidden" />
+        </div>
+      </div>
       <NavbarMenu>
-        {Object.entries(menuItemsRoutes).map(([item, href], index) => (
-          <NavbarMenuItem key={index}>
-            <Link color="foreground" href={href} size="lg">
-              {item}
-            </Link>
-          </NavbarMenuItem>
-        ))}
+        <NavbarContent className="flex flex-col space-y-2">
+          {Object.entries(menuItemsRoutes).map(([item, href], index) => (
+            <NavbarMenuItem key={index}>
+              <Link color="foreground" href={href} size="lg">
+                {item}
+              </Link>
+            </NavbarMenuItem>
+          ))}
+        </NavbarContent>
       </NavbarMenu>
     </NextUINavbar>
   );
