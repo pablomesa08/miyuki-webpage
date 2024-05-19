@@ -14,6 +14,7 @@ import { mdiCartOutline, mdiAccountOutline } from "@mdi/js";
 import { AcmeLogo } from "./AcmeLogo.jsx";
 import LoginLogoutButtom from "./buttons/loginLogout";
 import ProductsPopover, { Category } from "./ProductsPopover";
+import { useRouter } from "next/router.js";
 
 export default function NavbarHome() {
   const router = useRouter();
@@ -60,7 +61,12 @@ export default function NavbarHome() {
   ];
 
   return (
-    <NextUINavbar isBordered position="static" height="7rem" className="w-full mx-0 px-0">
+    <NextUINavbar
+      isBordered
+      position="static"
+      height="7rem"
+      className="w-full mx-0 px-0"
+    >
       <div className="flex flex-row items-center w-full justify-between mx-0 px-4">
         {/* Logo container */}
         <div className="flex items-center space-x-4">
@@ -85,7 +91,7 @@ export default function NavbarHome() {
         {/* Action items */}
         <div className="flex items-center space-x-4">
           <LoginLogoutButtom />
-          <Link href="/profile">
+          <Link href="/user/profile">
             <Icon path={mdiAccountOutline} size={1} />
           </Link>
           <Link href="/cartPage">

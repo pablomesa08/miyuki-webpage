@@ -1,49 +1,31 @@
-import React, { useState } from 'react';
-import CartItem from '../components/cart/cartItem';
-import CartSummary from '../components/cart/CartSummary';
-import NavbarHome from '@/components/ui/navbar/navbarHome';
-import Footer from '@/components/ui/navbar/footer';
-import { Format, ColorSet } from "@/types/productType"; 
+import React, { useEffect, useState } from "react";
+import CartItem from "../components/cart/cartItem";
+import CartSummary from "../components/cart/CartSummary";
+import NavbarHome from "@/components/ui/navbar/navbarHome";
+import Footer from "@/components/ui/navbar/footer";
+import { Format, ColorSet, ProductCartType } from "@/types/productType";
+import { useAuth } from "@/hooks/useAuth";
+import { useCart } from "@/hooks/useCart";
 
-interface Product {
-  id: number;
-  name: string;
-  price: number;
-  color: string;
-  quantity: number;
-  image: string;
-  colorSets: ColorSet[];
-  formats: Format[]; 
-}
+export default function CartPage() {
+  const { isLoading, isLoggedIn } = useAuth();
+  const { getProducts } = useCart();
+  const [products, setProducts] = useState<ProductCartType[]>([]);
+  const [loadingProducts, setLoadingProducts] = useState(true);
 
-const CartPage: React.FC = () => {
-  const [products, setProducts] = useState<Product[]>([
-    {
-      id: 1,
-      name: "Nombre Producto 1",
-      price: 19.99,
-      color: "purple",
-      quantity: 2,
-      image: "/images/backround/morado.png",
-      colorSets: [
-        { name: "bb", id: "12", colors: ["#FFDA03", "#A52A2A", "#228B22"] },
-      ],
-      formats: [],
-    },
-    {
-      id: 2,
-      name: "Nombre Producto 2",
-      price: 29.99,
-      color: "blue",
-      quantity: 3,
-      image: "/images/backround/azul.png",
-      colorSets: [
-        { name: "bb", id: "12", colors: ["#A52A2A", "#FFDA07", "#228B22"] },
-      ],
-      formats: [],
-    },
-  ]);
+  useEffect(() => {
+    if (isLoggedIn) {
+      getProducts().then((loadedProducts) => {
+        setProducts(loadedProducts);
+        setLoadingProducts(false);
+      });
+    }
+  }, [isLoggedIn, getProducts]);
 
+  if (isLoading || loadingProducts) return <p>Loading...</p>;
+  if (!isLoggedIn) return <p>Please login to view your cart</p>;
+
+  /*
   const handleRemove = (id: number) => {
     setProducts(products.filter((product) => product.id !== id));
   };
@@ -59,11 +41,16 @@ const CartPage: React.FC = () => {
   const handleCheckout = () => {
     console.log("Checkout");
   };
-
+  
+  
   const subtotal = products.reduce(
     (total, product) => total + product.price * product.quantity,
     0
   );
+  */
+  const onCheckout = () => {
+    console.log("Checkout");
+  };
 
   return (
     <div className="flex flex-col min-h-[100vh] justify-between">
@@ -76,21 +63,14 @@ const CartPage: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
             <div className="md:col-span-2 space-y-4">
               {products.map((product) => (
-                <CartItem
-                  key={product.id}
-                  product={product}
-                  onRemove={handleRemove}
-                  onUpdateQuantity={handleUpdateQuantity}
-                />
+                <CartItem key={product.id} product={product} />
               ))}
             </div>
-            <CartSummary subtotal={subtotal} onCheckout={handleCheckout} />
+            <CartSummary subtotal={10} onCheckout={onCheckout} />
           </div>
         </div>
       </main>
       <Footer />
     </div>
   );
-};
-
-export default CartPage;
+}

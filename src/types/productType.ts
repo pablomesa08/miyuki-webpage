@@ -18,11 +18,9 @@ export type Category = {
 export type ProductData = {
   id: string;
   name: string;
-  description: string; // Agregar esta línea si aún no está
+
   basePrice: number;
-  price: number; // Agregar esta línea si aún no está
-  stock: number; // Agregar esta línea
-  mass: number; // Agregar esta línea si aún no está
+
   addedDate: Date;
   isAvailable: boolean;
   categories: Category[];
