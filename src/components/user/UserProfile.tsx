@@ -29,7 +29,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ user }) => {
 
   return (
     <div className="bg-white p-6 rounded-lg shadow">
-      <h2 className="text-lg font-semibold mb-4">Información Personal</h2>
+      <h1 className="font-semibold mb-4 text-2xl">Información Personal</h1>
       <div className="space-y-2">
         <p>
           <strong>Nombre de Usuario:</strong>

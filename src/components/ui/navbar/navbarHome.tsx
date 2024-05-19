@@ -84,7 +84,7 @@ export default function NavbarHome() {
         {/* Action items */}
         <div className="flex items-center space-x-4">
           <LoginLogoutButtom />
-          <Link href="/profile">
+          <Link href="/user/profile">
             <Icon path={mdiAccountOutline} size={1} />
           </Link>
           <Link href="/cartPage">
