@@ -20,7 +20,6 @@ export default async function handler(
 
     // Devolver los datos de los productos
     const productsData = await products.json();
-    console.log("products", productsData);
     return res.status(200).json(productsData);
   }
 
@@ -41,5 +40,26 @@ export default async function handler(
     }
 
     return res.status(200).json(await product.json());
+  }
+
+  if (req.method === "DELETE") {
+    console.log("removing product from cart");
+    const { productCartId } = req.body; // Cambio aquí, usando req.body directamente.
+    const product = await fetch(
+      `${process.env.BACKEND_URL}/cart/${productCartId}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${req.cookies.auth_token}`,
+        },
+      }
+    );
+
+    if (!product.ok) {
+      return res.status(404).json({ error: "Product not found" });
+    }
+
+    return res.status(200).json({ success: true });
   }
 }

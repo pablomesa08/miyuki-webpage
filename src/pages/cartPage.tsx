@@ -52,6 +52,16 @@ export default function CartPage() {
     console.log("Checkout");
   };
 
+  const getSubtotal = () => {
+    return products.reduce(
+      (total, product) =>
+        total +
+        (Number(product.basePrice) + Number(product.format.price)) *
+          Number(product.quantity),
+      0
+    );
+  };
+
   return (
     <div className="flex flex-col min-h-[100vh] justify-between">
       <NavbarHome />
@@ -66,7 +76,7 @@ export default function CartPage() {
                 <CartItem key={product.id} product={product} />
               ))}
             </div>
-            <CartSummary subtotal={10} onCheckout={onCheckout} />
+            <CartSummary subtotal={getSubtotal()} onCheckout={onCheckout} />
           </div>
         </div>
       </main>

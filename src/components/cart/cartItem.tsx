@@ -2,10 +2,13 @@ import React, { useState } from "react";
 import { Button, Image } from "@nextui-org/react";
 import { Format, ColorSet, ProductCartType } from "@/types/productType";
 import { getPath } from "../products/colorWheel";
+import { useCart } from "@/hooks/useCart";
 
 export default function CartItem({
   product,
 }: Readonly<{ product: ProductCartType }>) {
+  const { removeProduct } = useCart();
+
   const getPrice = () => {
     console.log("Calculating price");
     console.log(product.basePrice);
@@ -24,6 +27,7 @@ export default function CartItem({
         isIconOnly
         radius="full"
         className="absolute top-2 right-2 bg-black text-white p-2"
+        onClick={() => removeProduct(product.id)}
       >
         X
       </Button>
