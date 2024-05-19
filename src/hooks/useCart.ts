@@ -1,17 +1,10 @@
 import { useCallback } from "react";
-import { ProductCartType } from "@/types/productType";
+import { ProductCartType, ProductCart } from "@/types/productType";
 import useSWR from "swr";
-
-type ProductCart = {
-  productId: string;
-  formatId: string;
-  quantity: number;
-  colorSetId: string;
-};
 
 type UseCartReturn = {
   getProducts: () => Promise<ProductCartType[]>;
-  addProduct: (product: ProductCart) => void;
+  addProduct: (product: ProductCart) => Promise<boolean>;
   removeProduct: (productCartId: string) => void;
 };
 
@@ -38,6 +31,13 @@ export function useCart(): UseCartReturn {
         cartProductsCache ? [...cartProductsCache, newProduct] : [newProduct],
         false
       );
+      if (newProduct) {
+        console.log("Product added to cart");
+        return true;
+      } else {
+        console.error("Failed to add product to cart");
+        return false;
+      }
     },
     [mutateCartProducts, cartProductsCache]
   );

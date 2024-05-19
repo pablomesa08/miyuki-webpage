@@ -53,6 +53,7 @@ export function useProduct(): UseProductReturn {
         addedDate: new Date(data.addeddate),
         image: "https://via.placeholder.com/300x250",
         colorSets: data.colorsets.map((set: any) => ({
+          id: set.id,
           name: set.name,
           colors: set.colors,
         })),

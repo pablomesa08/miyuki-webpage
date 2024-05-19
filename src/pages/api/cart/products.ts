@@ -25,21 +25,26 @@ export default async function handler(
 
   if (req.method === "POST") {
     console.log("adding product to cart");
-    const { productId } = JSON.parse(req.body);
+    console.log(req.body);
     const product = await fetch(`${process.env.BACKEND_URL}/cart`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${req.cookies.auth_token}`,
       },
-      body: JSON.stringify({ productId }),
+      body: JSON.stringify(req.body), // Asegúrate de que es una cadena JSON
     });
 
     if (!product.ok) {
-      return res.status(404).json({ error: "Product not found" });
+      const errorResponse = await product.text(); // Captura la respuesta de error para diagnóstico
+      console.error("Error response:", errorResponse);
+      return res
+        .status(product.status)
+        .json({ error: "Product not found", details: errorResponse });
     }
-
-    return res.status(200).json(await product.json());
+    const products = await product.json();
+    console.log("productos en carrito", products);
+    return res.status(200).json(products);
   }
 
   if (req.method === "DELETE") {

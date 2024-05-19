@@ -51,3 +51,10 @@ export type ProductCartType = {
   colorSet: ColorSet;
   quantity: number;
 };
+
+export type ProductCart = {
+  productId: string;
+  formatId: string;
+  quantity: number;
+  colorsetId: string;
+};
