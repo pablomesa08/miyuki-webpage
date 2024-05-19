@@ -1,34 +1,44 @@
-import React from 'react';
-
-interface Product {
-  id: number;
-  name: string;
-  format: string;
-  color: string;
-  price: number;
-}
+import React from "react";
+import { Image, Card, Button, CardBody } from "@nextui-org/react";
+import { useRouter } from "next/router";
+import { ProductIdNameImage } from "@/types/productType";
+import FavoriteIcon from "../products/favoriteIcon";
 
 interface WishlistProps {
-  products: Product[];
+  products: ProductIdNameImage[];
 }
 
 const Wishlist: React.FC<WishlistProps> = ({ products }) => {
+  const router = useRouter();
+
+  const navigateToProduct = (id: string) => {
+    router.push(`/products/product?productId=${id}`);
+  };
+
   return (
     <div className="bg-white p-6 rounded-lg shadow">
-      <h2 className="text-lg font-semibold mb-4">Lista de Deseos</h2>
-      {products.map(product => (
-        <div key={product.id} className="flex justify-between items-center mb-3">
-          <div className="flex items-center space-x-4">
-            <div className={`h-16 w-16 bg-${product.color}-300`}></div>
-            <div>
-              <h3>{product.name}</h3>
-              <p>Formato: {product.format}</p>
-              <p>Color: {product.color}</p>
-              <p>${product.price.toFixed(2)}</p>
+      <h2 className="text-4xl font-bold text-center mb-6">Lista de Deseos</h2>
+      {products.map((product) => (
+        <Card
+          key={product.id}
+          className="mb-4"
+          onPress={() => navigateToProduct(product.id)}
+        >
+          <CardBody className="flex items-center">
+            <Image
+              alt={product.name}
+              src={`/Images/backround/azul.png`}
+              width="250"
+              height={250}
+            />
+            <div className="flex flex-col ml-4">
+              <h3 className="text-2xl font-semibold">{product.name}</h3>
             </div>
-          </div>
-          <button className="py-2 px-4 bg-green-500 text-white rounded hover:bg-green-400">Agregar</button>
-        </div>
+            <div className="">
+              <FavoriteIcon productId={product.id} />
+            </div>
+          </CardBody>
+        </Card>
       ))}
     </div>
   );

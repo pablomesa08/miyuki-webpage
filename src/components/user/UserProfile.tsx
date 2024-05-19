@@ -1,27 +1,27 @@
-import React from 'react';
+import React from "react";
+import { useAuth } from "@/hooks/useAuth";
 
-interface UserProfileProps {
-  user: {
-    username: string;
-    fullName: string;
-    email: string;
-    address: string;
-  };
-}
+const UserProfile = () => {
+  const { userInfo, isLoading } = useAuth();
 
-const UserProfile: React.FC<UserProfileProps> = ({ user }) => {
+  if (isLoading) return <p>Loading...</p>;
+  if (!userInfo) return <p>No user information available.</p>;
+
   return (
     <div className="bg-white p-6 rounded-lg shadow">
-      <h2 className="text-lg font-semibold mb-4">Información Personal</h2>
-      <div className="space-y-2">
-        <p><strong>Nombre de Usuario:</strong> {user.username}</p>
-        <p><strong>Nombre Completo:</strong> {user.fullName}</p>
-        <p><strong>Correo:</strong> {user.email}</p>
-        <p><strong>Dirección:</strong> {user.address}</p>
-        <button className="mt-4 py-2 px-4 bg-gray-800 text-white rounded hover:bg-gray-600">
-          Editar Información
-        </button>
-      </div>
+      <h1 className="font-semibold mb-4 text-2xl">Información Personal</h1>
+      <p>
+        <strong>Nombre de Usuario:</strong> {userInfo.username}
+      </p>
+      <p>
+        <strong>Nombre Completo:</strong> {userInfo.fullName}
+      </p>
+      <p>
+        <strong>Correo:</strong> {userInfo.email}
+      </p>
+      <p>
+        <strong>Dirección:</strong> {userInfo.address}
+      </p>
     </div>
   );
 };

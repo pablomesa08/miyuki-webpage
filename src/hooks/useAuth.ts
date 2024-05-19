@@ -1,5 +1,7 @@
 import useSWR, { mutate } from "swr";
 import { useRouter } from "next/router";
+import { UserInfo } from "@/types/productType";
+import { useCallback } from "react";
 
 const fetcher = (url: string | URL | Request) =>
   fetch(url).then((res) => res.json());
@@ -9,11 +11,22 @@ type UseAuthReturn = {
   login: (email: string, password: string) => Promise<void>;
   logout: () => void;
   isLoading: boolean;
+  userInfo: UserInfo;
 };
 
 export function useAuth(): UseAuthReturn {
   const { data, error } = useSWR("/api/auth/status", fetcher);
+  const { data: userInfoData } = useSWR("/api/auth/profile", fetcherUserInfo, {
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false,
+  });
   const router = useRouter();
+  const userInfo = userInfoData || {
+    username: "",
+    fullName: "",
+    email: "",
+    address: "",
+  };
 
   const isLoggedIn = data?.isAuthenticated;
   const isLoading = !error && !data;
@@ -41,5 +54,24 @@ export function useAuth(): UseAuthReturn {
       })
       .catch((error) => console.error("Logout failed", error));
   };
-  return { isLoggedIn, login, logout, isLoading };
+  return { isLoggedIn, login, logout, isLoading, userInfo };
+}
+
+async function fetcherUserInfo() {
+  const response = await fetch("/api/auth/profile", {
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+  });
+  if (response.ok) {
+    const userInfo = await response.json();
+    const user: UserInfo = {
+      username: userInfo.username,
+      fullName: userInfo.name,
+      email: userInfo.email,
+      address: userInfo.address,
+    };
+    return user;
+  } else {
+    throw new Error("Failed to fetch user info");
+  }
 }

@@ -58,3 +58,10 @@ export type ProductCart = {
   quantity: number;
   colorsetId: string;
 };
+
+export type UserInfo = {
+  username: string;
+  fullName: string;
+  email: string;
+  address: string;
+};
