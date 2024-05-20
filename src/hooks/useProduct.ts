@@ -12,6 +12,7 @@ type UseProductReturn = {
   getFavoriteProductId: (productId: string) => Promise<boolean>;
   setFavoriteProduct: (productId: string, status: boolean) => Promise<void>;
   getAllProducts: () => Promise<ProductGridType[]>;
+  getProductByCategoriesAndFormats: () => Promise<ProductGridType[]>;
 };
 
 export function useProduct(): UseProductReturn {
@@ -28,7 +29,7 @@ export function useProduct(): UseProductReturn {
     fallbackData: [],
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
-    dedupingInterval: 2000, // Espera 2 segundos antes de permitir otra solicitud
+    revalidateOnMount: false,
   });
 
   const { data: allProductsCache, mutate: mutateAllProducts } = useSWR<
@@ -37,6 +38,12 @@ export function useProduct(): UseProductReturn {
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
   });
+
+  const { data: categoriesFormatCache, mutate: mutateCategoriesFormat } =
+    useSWR<ProductGridType[]>("/categories-format-cache", productsFetcher, {
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
+    });
 
   const getProductById = useCallback(
     async (id: string) => {
@@ -143,11 +150,67 @@ export function useProduct(): UseProductReturn {
 
     return products;
   }, [mutateAllProducts]);
+
+  const getProductByCategoriesAndFormats = useCallback(async () => {
+    return categoriesFormatCache || [];
+  }, [categoriesFormatCache]);
+
   return {
     getProductById,
     getFavoriteProducts,
     getFavoriteProductId,
     setFavoriteProduct,
     getAllProducts,
+    getProductByCategoriesAndFormats,
   };
+}
+
+async function productsFetcher(
+  categories: string[],
+  formats: string[]
+): Promise<ProductGridType[]> {
+  let products: ProductGridType[] = [];
+
+  if (categories.length === 0 && formats.length === 0) {
+    return [];
+  }
+  // first fetch all categories
+  if (categories.length > 0) {
+    const responseCategories = await fetch(`/api/product/categories`, {
+      method: "POST",
+      body: JSON.stringify({ categories }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    // map the response to  ProductGridType array and append to products
+    const dataCategories = await responseCategories.json();
+    products = dataCategories.map((product: ProductGridType) => ({
+      id: product.id,
+      name: product.name,
+      image: "https://source.unsplash.com/random/200x200",
+      basePrice: product.basePrice,
+    }));
+  }
+  // then fetch all formats
+  if (formats.length > 0) {
+    const responseFormats = await fetch(`/api/product/formats`, {
+      method: "POST",
+      body: JSON.stringify({ formats }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    // map the response to  ProductGridType array and append to products
+    const dataFormats = await responseFormats.json();
+    products = dataFormats.map((product: ProductGridType) => ({
+      id: product.id,
+      name: product.name,
+      image: "https://source.unsplash.com/random/200x200",
+      basePrice: product.basePrice,
+    }));
+  }
+
+  return products;
 }
