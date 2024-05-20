@@ -12,7 +12,10 @@ type UseProductReturn = {
   getFavoriteProductId: (productId: string) => Promise<boolean>;
   setFavoriteProduct: (productId: string, status: boolean) => Promise<void>;
   getAllProducts: () => Promise<ProductGridType[]>;
-  getProductByCategoriesAndFormats: () => Promise<ProductGridType[]>;
+  getProductByCategoriesAndFormats: (
+    categories: string[],
+    formats: string[]
+  ) => Promise<ProductGridType[]>;
 };
 
 export function useProduct(): UseProductReturn {
@@ -38,12 +41,6 @@ export function useProduct(): UseProductReturn {
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
   });
-
-  const { data: categoriesFormatCache, mutate: mutateCategoriesFormat } =
-    useSWR<ProductGridType[]>("/categories-format-cache", productsFetcher, {
-      revalidateOnFocus: false,
-      revalidateOnReconnect: false,
-    });
 
   const getProductById = useCallback(
     async (id: string) => {
@@ -151,9 +148,16 @@ export function useProduct(): UseProductReturn {
     return products;
   }, [mutateAllProducts]);
 
-  const getProductByCategoriesAndFormats = useCallback(async () => {
-    return categoriesFormatCache || [];
-  }, [categoriesFormatCache]);
+  const getProductByCategoriesAndFormats = useCallback(
+    async (
+      categories: string[],
+      formats: string[]
+    ): Promise<ProductGridType[]> => {
+      console.log("getting products by categories and formats");
+      return productsFetcher(categories, formats);
+    },
+    []
+  );
 
   return {
     getProductById,
@@ -170,7 +174,9 @@ async function productsFetcher(
   formats: string[]
 ): Promise<ProductGridType[]> {
   let products: ProductGridType[] = [];
-
+  console.log("getting products by categories and formats");
+  console.log("categories", categories);
+  console.log("formats", formats);
   if (categories.length === 0 && formats.length === 0) {
     return [];
   }

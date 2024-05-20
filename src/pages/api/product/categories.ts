@@ -23,7 +23,8 @@ export default async function handler(
      */
     // if you look, the query parameter is categoryIds and the value is a comma separated list of category ids
     // lest do the code
-    let { categories } = JSON.parse(req.body);
+    let { categories } = req.body;
+    console.log("categories", categories);
     let categriesSplitted = categories.join(",");
     const data = await fetch(
       `${process.env.BACKEND_URL}/products/categories?categoryIds=${categriesSplitted}`,

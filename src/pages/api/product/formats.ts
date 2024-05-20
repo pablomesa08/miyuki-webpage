@@ -6,7 +6,7 @@ export default async function handler(
 ) {
   // get all formats
   if (req.method === "POST") {
-    let { formats } = JSON.parse(req.body);
+    let { formats } = req.body;
     let formatsSplitted = formats.join(",");
     const data = await fetch(
       `${process.env.BACKEND_URL}/products/formats?formatIds=${formatsSplitted}`,

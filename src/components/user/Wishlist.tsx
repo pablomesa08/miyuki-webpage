@@ -22,7 +22,10 @@ const Wishlist: React.FC<WishlistProps> = ({ products }) => {
         <Card
           key={product.id}
           className="mb-4"
-          onPress={() => navigateToProduct(product.id)}
+          isPressable
+          onPress={() =>
+            router.push(`/products/product?productId=${product.id}`)
+          }
         >
           <CardBody className="flex items-center">
             <Image

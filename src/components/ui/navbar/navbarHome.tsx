@@ -25,36 +25,40 @@ export default function NavbarHome() {
 
   const categories: Category[] = [
     {
-      label: "Etiqueta 1",
+      label: "Categorias",
       items: [
         {
-          label: "Item 1",
-          href: "/products/tag?tag=item-1-etiqueta-1",
+          label: "Anillos",
+          href: "/products/tag?categories=c70a7ae8-c82a-4e1d-bd56-1a484d231e15",
         },
         {
-          label: "Item 2",
-          href: "/products/tag?tag=item-2-etiqueta-1",
+          label: "Collares",
+          href: "/products/tag?categories=c88c70d3-10f4-462b-9d9a-b2598c6d8476",
         },
         {
-          label: "Item 3",
-          href: "/products/tag?tag=item-3-etiqueta-1",
+          label: "Dijes",
+          href: "/products/tag?categories=b3105fab-c7c9-45d3-a606-3758e1545a9f",
         },
       ],
     },
     {
-      label: "Etiqueta 2",
+      label: "Formatos",
       items: [
         {
-          label: "Item 1",
-          href: "/products/tag?tag=item-1-etiqueta-2",
+          label: "Oro",
+          href: "/products/tag?formats=f8b8c6fa-2dab-4612-b882-55369514b95a",
         },
         {
-          label: "Item 2",
-          href: "/products/tag?tag=item-2-etiqueta-2",
+          label: "Bronce",
+          href: "/products/tag?formats=3f7b4a4d-982f-4ece-841e-76f77b5293b3",
         },
         {
-          label: "Item 3",
-          href: "/products/tag?tag=item-3-etiqueta-2",
+          label: "Plata",
+          href: "/products/tag?formats=d03225f5-d965-42a4-a334-76b8f0a4a565",
+        },
+        {
+          label: "Rottweiler",
+          href: "/products/tag?formats=e18d186b-ceb9-4edd-b6fa-b98423493359",
         },
       ],
     },

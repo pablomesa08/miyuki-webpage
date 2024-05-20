@@ -2,7 +2,7 @@ import ProductGrid from "@/components/products/productGrid";
 import Footer from "@/components/ui/navbar/footer";
 import NavbarHome from "@/components/ui/navbar/navbarHome";
 import { useProduct } from "@/hooks/useProduct";
-import { ProductGridType, ProductIdNameImage } from "@/types/productType";
+import { ProductGridType } from "@/types/productType";
 import {
   Button,
   Card,
@@ -15,34 +15,40 @@ import { useEffect, useState } from "react";
 
 export default function Tag() {
   const router = useRouter();
-  const { tag } = router.query;
-  const filters: string[] = ["bonito", "pajaro", "pez"];
+  const { tag, categories, formats } = router.query;
 
-  const { getAllProducts } = useProduct(); // TODO: No traer todos los productos, solo los que tengan el tag
-  const [products, setProduct] = useState<ProductGridType[] | null>(null);
+  const { getProductByCategoriesAndFormats } = useProduct();
+  const [products, setProducts] = useState<ProductGridType[] | null>(null);
   const [loadingProducts, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!products) {
-      console.log("getting all products");
-      setLoading(true);
-      setError(null);
-      getAllProducts()
-        .then((data) => {
-          setProduct(data);
-          setLoading(false);
-        })
-        .catch((err) => {
-          console.error("Failed to fetch product:", err);
-          setError(err.message || "Failed to load product");
-          setLoading(false);
-        });
+    let categoryArray: string[] = [];
+    let formatArray: string[] = [];
+    if (categories) {
+      categoryArray = categories.toString().split(",");
     }
-  }, [getAllProducts, products]);
+    if (formats) {
+      formatArray = formats.toString().split(",");
+    }
+
+    console.log("Fetching products based on categories and formats");
+    setLoading(true);
+    setError(null);
+    getProductByCategoriesAndFormats(categoryArray, formatArray)
+      .then((data) => {
+        setProducts(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Failed to fetch products:", err);
+        setError(err.message || "Failed to load products");
+        setLoading(false);
+      });
+  }, [categories, formats, getProductByCategoriesAndFormats]);
 
   return (
-    <div className="flex flex-col min-h-screen  justify-between">
+    <div className="flex flex-col min-h-screen justify-between">
       <NavbarHome />
       <main className="grow">
         <section className="flex flex-row">
@@ -51,7 +57,7 @@ export default function Tag() {
               <CardBody>
                 <h1 className="text-xl font-bold text-center">Filtros</h1>
                 <CheckboxGroup className="mt-1">
-                  {filters.map((filter, index) => (
+                  {["bonito", "pajaro", "pez"].map((filter, index) => (
                     <div key={index}>
                       <Checkbox value={filter}>{filter}</Checkbox>
                     </div>
@@ -60,8 +66,8 @@ export default function Tag() {
               </CardBody>
             </Card>
           </article>
-          <article className=" flex flex-col grow items-center mt-5 mr-10  w-full  ">
-            <h1 className="text-2xl uppercase font-bold ">{tag}</h1>
+          <article className="flex flex-col grow items-center mt-5 mr-10 w-full">
+            <h1 className="text-2xl uppercase font-bold">{tag}</h1>
             <Button size="sm" variant="solid" className="self-end mr-10">
               Ordenar
             </Button>

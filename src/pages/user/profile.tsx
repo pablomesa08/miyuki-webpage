@@ -7,13 +7,6 @@ import { ColorSet, Format, ProductIdNameImage } from "@/types/productType";
 import { useProduct } from "@/hooks/useProduct";
 
 export default function Profile() {
-  const user = {
-    username: "Natynaro",
-    fullName: "Natalia Naranjo",
-    email: "natynaro@gmail.com",
-    address: "Calle 80 #20-44 apto 666, Ant, Med",
-  };
-
   const { getFavoriteProducts } = useProduct();
   const [favorites, setProduct] = useState<ProductIdNameImage[] | null>(null);
   const [loading, setLoading] = useState(false);
