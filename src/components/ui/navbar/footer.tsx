@@ -4,11 +4,11 @@ import { AcmeLogo } from "./AcmeLogo";
 
 export default function Fotter() {
   return (
-    <Card className="mt-10">
+    <Card className="mt-10 bg-focus">
       <CardBody className="flex flex-row justify-evenly">
         <div className="flex items-center ">
           <AcmeLogo />
-          <Link href="/" color="foreground">
+          <Link href="/" color="primary" className="text-primary">
             <p className="font-bold text-inherit">LOGO</p>
           </Link>
         </div>
@@ -16,8 +16,7 @@ export default function Fotter() {
           <Button
             size="sm"
             variant="solid"
-            color="secondary"
-            className="font-bold"
+            className="font-bold bg-success text-success-foreground hover:text-success-foreground focus:text-success-foreground"
           >
             {"información"}
           </Button>
@@ -25,15 +24,15 @@ export default function Fotter() {
             size="sm"
             variant="solid"
             color="secondary"
-            className="font-bold"
-          >
+            className="font-bold bg-success text-success-foreground hover:text-success-foreground focus:text-success-foreground"
+           >
             {"información"}
           </Button>
           <Button
             size="sm"
             variant="solid"
             color="secondary"
-            className="font-bold"
+            className="font-bold bg-success text-success-foreground hover:text-success-foreground focus:text-success-foreground"
           >
             {"información"}
           </Button>

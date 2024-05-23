@@ -6,39 +6,46 @@ import FeaturedAccessories from "@/components/featured/featuredAccessories";
 import FavouriteTags from "@/components/featured/favouriteTags";
 import FeaturedSocialMedia from "@/components/featured/featuredSocialMedia";
 import Footer from "@/components/ui/navbar/footer";
+import { BiFullscreen } from "react-icons/bi";
 
 export default function Page() {
   const OPTIONS: EmblaOptionsType = { loop: true };
   const favouriteClients = [
     {
-      image: "https://source.unsplash.com/random/200x200",
+      image: "/Images/backround/verde.png",
       text: "",
     },
     {
-      image: "https://source.unsplash.com/random/200x200",
+      image: "/Images/backround/verde.png",
       text: "",
     },
     {
-      image: "https://source.unsplash.com/random/200x200",
+      image: "/Images/backround/verde.png",
       text: "",
     },
   ];
 
   return (
-    <div>
-      <NavbarHome />
-      <div className="mt-5"></div>
-      <section className="flex flex-col  items-center">
-        <FeaturedProduct />
-        <FeaturedAccessories />
-        <article className="mt-5">
-          <h1 className=" text-2xl text-center mb-5">
-            Favoritos de nuestros clientes
-          </h1>
-          <EmblaCarousel slides={favouriteClients} options={OPTIONS} />
-        </article>
-        <FavouriteTags />
-        <FeaturedSocialMedia />
+    <div className="flex flex-col w-full m-0 p-0">
+      <NavbarHome/>
+
+      <section className="flex flex-col items-center w-full">
+        <div className="w-full mx-auto">
+          <FeaturedProduct />
+          <div className="bg-focus">
+            <FeaturedAccessories />
+          </div>
+          <article className="mt-5">
+            <h1 className="text-2xl text-center mb-5">
+              Favoritos de nuestros clientes
+            </h1>
+            <div className="flex flex-col justify-center items-center">
+              <EmblaCarousel slides={favouriteClients} options={OPTIONS} />
+            </div>
+          </article>
+          <FavouriteTags />
+          <FeaturedSocialMedia />
+        </div>
       </section>
       <Footer />
     </div>
