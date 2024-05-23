@@ -3,17 +3,17 @@ import UserProfile from "../../components/user/UserProfile";
 import Wishlist from "../../components/user/Wishlist";
 import Footer from "@/components/ui/navbar/footer";
 import NavbarHome from "@/components/ui/navbar/navbarHome";
-import { ColorSet, Format, ProductIdNameImage } from "@/types/productType";
+import { ProductIdNameImage } from "@/types/productType";
 import { useProduct } from "@/hooks/useProduct";
 
 export default function Profile() {
   const { getFavoriteProducts } = useProduct();
-  const [favorites, setProduct] = useState<ProductIdNameImage[] | null>(null);
+  const [product, setProduct] = useState<ProductIdNameImage[] | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!favorites) {
+    if (!product) {
       setLoading(true);
       setError(null);
       getFavoriteProducts()
@@ -27,15 +27,15 @@ export default function Profile() {
           setLoading(false);
         });
     }
-  }, [getFavoriteProducts, favorites]);
+  }, [getFavoriteProducts, product]);
 
   let content;
   if (loading) {
     content = <div>Loading...</div>;
   } else if (error) {
     content = <div>Error: {error}</div>;
-  } else if (favorites) {
-    content = <Wishlist products={favorites} />;
+  } else if (product) {
+    content = <Wishlist products={product} />;
   } else {
     content = <div>Product not found</div>;
   }
