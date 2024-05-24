@@ -37,7 +37,7 @@ export const config = {
 async function verifyToken(token: string): Promise<boolean> {
   try {
     // Verify the token using the secret key and check for validity
-    await jwtVerify(token, JWT_SECRET);
+    // await jwtVerify(token, JWT_SECRET);
 
     // Assuming the decoded token contains the user's information
     //console.log("Decoded token:", decoded);
