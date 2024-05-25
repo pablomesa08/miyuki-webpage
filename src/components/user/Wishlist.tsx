@@ -30,7 +30,7 @@ const Wishlist: React.FC<WishlistProps> = ({ products }) => {
           <CardBody className="flex items-center">
             <Image
               alt={product.name}
-              src={`/Images/backround/azul.png`}
+              src={product.image}
               width="250"
               height={250}
             />
