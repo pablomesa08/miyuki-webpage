@@ -16,6 +16,7 @@ import { Format, ProductData, ColorSet } from "@/types/productType";
 import { getPath } from "./colorWheel";
 import FavoriteIcon from "./favoriteIcon";
 import { useCart } from "@/hooks/useCart";
+import { useAuth } from "@/hooks/useAuth";
 
 export default function ProductComponent({
   product,
@@ -37,6 +38,12 @@ export default function ProductComponent({
     onOpen: onErrorAddedModalOpen,
     onClose: onErrorAddedModalClose,
   } = useDisclosure();
+  // modal for "deberia estar autenticado para comprar"
+  const {
+    isOpen: isAuthModalOpen,
+    onOpen: onAuthModalOpen,
+    onClose: onAuthModalClose,
+  } = useDisclosure();
 
   const handleIncrement = () => {
     setQuantity((prevQuantity) => prevQuantity + 1);
@@ -47,8 +54,14 @@ export default function ProductComponent({
       setQuantity((prevQuantity) => prevQuantity - 1);
     }
   };
+  const { isLoggedIn } = useAuth();
 
   const handleBuy = async () => {
+    if (!isLoggedIn) {
+      onErrorAddedModalOpen();
+      return;
+    }
+
     if (!selectedColorSet || !selectedFormat) {
       onOpen();
     } else {
@@ -122,9 +135,10 @@ export default function ProductComponent({
         backdrop="opaque"
       >
         <ModalContent>
-          <ModalHeader>Producto Añadido</ModalHeader>
+          <ModalHeader>Ups, no se pudo añadir el producto 😥</ModalHeader>
           <ModalBody>
             <p>Error añadiendo producto al carrito de compra</p>
+            {isLoggedIn ? <></> : <p>Debes iniciar sesión antes de comprar</p>}
           </ModalBody>
           <ModalFooter>
             <Button color="success" onClick={onErrorAddedModalClose}>
