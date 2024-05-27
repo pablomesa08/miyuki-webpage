@@ -8,16 +8,16 @@ export async function middleware(request: NextRequest) {
   const token = request.cookies.get("auth_token")?.value;
 
   // Logic to redirect to / if the user is not authenticated
-  if (
-    request.nextUrl.pathname === "/user/auth" ||
-    (request.nextUrl.pathname === "/cartPage" && token)
-  ) {
+  if (request.nextUrl.pathname === "/user/auth" && token) {
     return NextResponse.redirect(new URL("/", request.url));
   } else if (request.nextUrl.pathname === "/user/auth" && !token) {
     return NextResponse.next();
   }
 
   // Logic to redirect to / if the user is not authenticated
+  if (request.nextUrl.pathname === "/cartPage" && !token) {
+    return NextResponse.redirect(new URL("/", request.url));
+  }
 
   // Logic to redirect to / if the user is already authenticated
   if (request.nextUrl.pathname === "/user/register" && token) {
