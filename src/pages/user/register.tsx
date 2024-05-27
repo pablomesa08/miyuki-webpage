@@ -261,7 +261,7 @@ export default function Register() {
           <div className="flex justify-center items-center w-full md:w-1/2 hidden md:flex">
             <Image
               alt="Random image"
-              src="/Images/Backround/morado.png"
+              src="/Images/backround/morado.png"
               className="rounded-lg w-full h-auto"
             />
           </div>
