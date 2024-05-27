@@ -118,7 +118,7 @@ async function fetcher() {
     id: product.id,
     name: product.product.name,
     //public/Images/9ecbdfdd-9246-4260-a4d9-8af3efe3d777.png
-    image: `public/Images/${product.id}.png`,
+    image: `/Images/${product.product.id}.png`,
     basePrice: product.product.baseprice,
     format: {
       id: product.format.id,
@@ -133,5 +133,4 @@ async function fetcher() {
     quantity: product.quantity,
   }));
   return productsFormated;
-  
 }
