@@ -7,18 +7,18 @@ import { Card, CardBody, CardHeader, Image } from "@nextui-org/react";
 export default function Contact() {
   const characteristics: RectangleImageInfo[] = [
     {
-      imageUrl: "/Images/backround/azul.png",
-      imageTitle: "Característica 1",
+      imageUrl: "/Images/color.jpg",
+      imageTitle: "Color",
       imageDescription: "  ",
     },
     {
-      imageUrl: "/Images/backround/azul.png",
-      imageTitle: "Característica 2",
+      imageUrl: "/Images/creatividad.jpg",
+      imageTitle: "Creatividad",
       imageDescription: "  ",
     },
     {
-      imageUrl: "/Images/backround/azul.png",
-      imageTitle: "Característica 3",
+      imageUrl: "/Images/conexion.jpg",
+      imageTitle: "Conexión",
       imageDescription: "  ",
     },
   ];
@@ -26,16 +26,19 @@ export default function Contact() {
   const artisans: CircleImageInfo[] = [
     {
       imageUrl: "/Images/backround/verdeazul.png",
-      imageTitle: "Artesano 1",
+      backround:"/Images/backround/verdeazul.png",
+      imageTitle: "Artesano A",
       imageDescription: "Descripción. Cargos. Datos curiosos",
     },
     {
       imageUrl: "/Images/backround/verdeazul.png",
-      imageTitle: "Artesano 2",
-      imageDescription: "Descripción. Cargos. Datos curiosos",
+      backround:"/Images/backround/verdeazul.png",
+      imageTitle: "Natalia Naranjo",
+      imageDescription: "Fundadora y artesana principal. Le gustan los gatos",
     },
     {
       imageUrl: "/Images/backround/verdeazul.png",
+      backround:"/Images/backround/verdeazul.png",
       imageTitle: "Artesano 3",
       imageDescription: "Descripción. Cargos. Datos curiosos",
     },
@@ -49,10 +52,9 @@ export default function Contact() {
           <section className="flex flex-col items-center space-y-16">
             <Card className="relative h-[60vh] w-full mb-8">
               <CardHeader className="absolute z-10 top-1/3 flex-col items-center">
-                <p className="text-4xl text-white uppercase font-bold mb-6">Acerca de &quot;Nombre&quot;</p>
+                <p className="text-4xl text-white uppercase font-bold mb-6">Acerca de &quot;KIWI&quot;</p>
                 <h4 className="text-black font-medium text-medium w-[80vh] text-center">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo aspernatur in accusamus eum quo! Eum ipsam
-                  blanditiis nam aperiam culpa debitis ducimus sint? Atque molestiae aut, tenetur labore ea ratione.
+                Nuestros dijes de miyuki no solo son accesorios, son pequeñas obras de arte diseñadas para llevar alegría y color a tu día a día.
                 </h4>
               </CardHeader>
               <div className="absolute inset-0 bg-black opacity-20 z-0"></div>
@@ -67,13 +69,7 @@ export default function Contact() {
             <div className="w-screen flex justify-center py-24 bg-focus bg-opacity-75">
               <div className="w-full max-w-3xl bg-primary-50 p-6 rounded-md shadow-lg text-white relative z-10">
                 <p className="text-justify text-xl">
-                  Descripción general de la tienda: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut orci dui,
-                  consectetur ac tincidunt et, vehicula non quam. Sed eu aliquet orci, non congue erat. Cras ut auctor erat.
-                  Curabitur efficitur, augue ut feugiat semper, nunc odio iaculis turpis, non dignissim leo tortor quis
-                  tellus. Integer in augue mattis, gravida ante quis, tempus urna. Phasellus pulvinar velit sit amet lacus
-                  eleifend, in efficitur ligula feugiat. Fusce aliquet, magna sit amet dignissim suscipit, justo enim aliquet
-                  massa, id egestas nibh lacus sit amet erat. Interdum et malesuada fames ac ante ipsum primis in faucibus.
-                  Pellentesque quis lacinia enim.
+                En Kiwi, cada pieza de miyuki es más que un simple accesorio; es una expresión de arte y una celebración de individualidad. Nuestra tienda se especializa en dijes únicos, meticulosamente hechos a mano, que capturan la belleza y la diversidad del mundo que nos rodea. Desde la delicadeza de las flores hasta la juguetonía de los animales y la deliciosa apariencia de los alimentos, nuestros dijes son perfectos para quienes buscan añadir un toque especial y personal a su estilo.
                 </p>
               </div>
             </div>
