@@ -4,17 +4,20 @@ import ThreeImageGallery, { ImageInfo } from "../ui/groupImages/threeImageGaller
 export default function FavouriteTags() {
   const accessories: ImageInfo[] = [
     {
-      imageUrl: "/Images/backround/verdeazul.png",
+      imageUrl: "/Images/flores.png",
+      backround: "/Images/backround/verdeazul.png",
       imageTitle: "Flores",
       imageDescription: "",
     },
     {
-      imageUrl: "/Images/backround/verdeazul.png",
+      imageUrl: "/Images/animales.png",
+      backround: "/Images/backround/verdeazul.png",
       imageTitle: "Animales",
       imageDescription: "",
     },
     {
-      imageUrl: "/Images/backround/verdeazul.png",
+      imageUrl: "/Images/personajes.png",
+      backround: "/Images/backround/verdeazul.png",
       imageTitle: "Personajes",
       imageDescription: "",
     },
