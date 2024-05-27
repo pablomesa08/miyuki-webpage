@@ -55,7 +55,7 @@ export function useProduct(): UseProductReturn {
         name: data.name,
         basePrice: data.baseprice,
         addedDate: new Date(data.addeddate),
-        image: "https://via.placeholder.com/300x250",
+        image: "/Images/" + data.id + ".png",
         colorSets: data.colorsets.map((set: any) => ({
           id: set.id,
           name: set.name,
@@ -97,7 +97,7 @@ export function useProduct(): UseProductReturn {
     const favorites = data.map((product: ProductIdNameImage) => ({
       id: product.id,
       name: product.name,
-      image: "https://source.unsplash.com/random/200x200",
+      image: "/Images/" + product.id + ".png",
     }));
 
     mutateFavorites(favorites, false);
@@ -195,7 +195,7 @@ async function productsFetcher(
     products = dataCategories.map((product: ProductGridType) => ({
       id: product.id,
       name: product.name,
-      image: "https://source.unsplash.com/random/200x200",
+      image: "/Images/" + product.id + ".png",
       basePrice: product.basePrice,
     }));
   }
@@ -213,7 +213,7 @@ async function productsFetcher(
     products = dataFormats.map((product: ProductGridType) => ({
       id: product.id,
       name: product.name,
-      image: "https://source.unsplash.com/random/200x200",
+      image: "/Images/" + product.id + ".png",
       basePrice: product.basePrice,
     }));
   }

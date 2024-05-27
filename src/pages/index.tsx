@@ -6,28 +6,30 @@ import FeaturedAccessories from "@/components/featured/featuredAccessories";
 import FavouriteTags from "@/components/featured/favouriteTags";
 import FeaturedSocialMedia from "@/components/featured/featuredSocialMedia";
 import Footer from "@/components/ui/navbar/footer";
-import { BiFullscreen } from "react-icons/bi";
 
 export default function Page() {
   const OPTIONS: EmblaOptionsType = { loop: true };
   const favouriteClients = [
     {
-      image: "/Images/backround/verde.png",
+      image: "/Images/9ecbdfdd-9246-4260-a4d9-8af3efe3d777.png",
+      background: "/Images/backround/verde.png",
       text: "",
     },
     {
-      image: "/Images/backround/verde.png",
+      image: "/Images/64624cab-73c2-4b11-9c90-596bac82d032.png",
+      background: "/Images/backround/verde.png",
       text: "",
     },
     {
-      image: "/Images/backround/verde.png",
+      image: "/Images/aad606ec-20a1-41e4-97fa-5b0c32e411e1.png",
+      background: "/Images/backround/verde.png",
       text: "",
     },
   ];
 
   return (
     <div className="flex flex-col w-full m-0 p-0">
-      <NavbarHome/>
+      <NavbarHome />
 
       <section className="flex flex-col items-center w-full">
         <div className="w-full mx-auto">

@@ -7,6 +7,7 @@ import { Image } from "@nextui-org/react";
 
 type SlideType = {
   image: string;
+  background: string;
   text: string;
 };
 
@@ -44,12 +45,17 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
   );
 
   return (
-    <section className="embla">
+    <section className="embla relative">
       <div className="embla__viewport" ref={emblaRef}>
         <div className="embla__container">
           {slides.map((slide, index) => (
-            <div className="embla__slide" key={index}>
-              <div className="flex flex-col items-center">
+            <div className="embla__slide relative" key={index}>
+              <Image
+                src={slide.background}
+                alt="background"
+                className="absolute inset-0 w-full h-full object-cover z-0"
+              />
+              <div className="relative flex flex-col items-center z-10">
                 <Image src={slide.image} alt="slide" />
                 <p className="font-medium text-center">{slide.text}</p>
               </div>

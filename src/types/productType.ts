@@ -65,3 +65,10 @@ export type UserInfo = {
   email: string;
   address: string;
 };
+
+export type Promotion = {
+  id: string;
+  name: string;
+  value: number;
+  isAvailable: boolean;
+};

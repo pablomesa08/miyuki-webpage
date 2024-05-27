@@ -1,11 +1,12 @@
 import { useCallback } from "react";
-import { ProductCartType, ProductCart } from "@/types/productType";
+import { ProductCartType, ProductCart, Promotion } from "@/types/productType";
 import useSWR from "swr";
 
 type UseCartReturn = {
   getProducts: () => Promise<ProductCartType[]>;
   addProduct: (product: ProductCart) => Promise<boolean>;
   removeProduct: (productCartId: string) => void;
+  getDiscount: (discountCode: string) => Promise<Promotion>;
 };
 
 export function useCart(): UseCartReturn {
@@ -66,10 +67,37 @@ export function useCart(): UseCartReturn {
     [mutateCartProducts, cartProductsCache]
   );
 
+  const getDiscount = useCallback(
+    async (discountCode: string): Promise<Promotion> => {
+      console.log("getting discount");
+      // Corrige la ruta para que coincida con la estructura de archivos de Next.js
+      const response = await fetch(`/api/promotions/${discountCode}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (!response.ok) {
+        console.error("Failed to get discount");
+        throw new Error("Network response was not ok");
+      }
+      const data = await response.json();
+      const promotion: Promotion = {
+        id: data.id,
+        name: data.name,
+        value: data.value,
+        isAvailable: data.isAvailable,
+      };
+      return promotion;
+    },
+    []
+  );
+
   return {
     getProducts,
     addProduct,
     removeProduct,
+    getDiscount,
   };
 }
 
@@ -89,7 +117,8 @@ async function fetcher() {
   const productsFormated = products.map((product: any) => ({
     id: product.id,
     name: product.product.name,
-    image: "https://via.placeholder.com/300x250",
+    //public/Images/9ecbdfdd-9246-4260-a4d9-8af3efe3d777.png
+    image: `/Images/${product.product.id}.png`,
     basePrice: product.product.baseprice,
     format: {
       id: product.format.id,
