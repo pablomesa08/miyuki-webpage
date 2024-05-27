@@ -15,13 +15,19 @@ export default function ProductCartGrid({
         <Card key={index} shadow="sm">
           <CardBody>
             <div className="flex flex-row gap-4">
-              <Image
-                src={product.image}
-                alt={product.name}
-                width="100px"
-                height="100px"
-                className="object-cover"
-              />
+              <div className="relative w-24 h-24 flex-shrink-0">
+                <div
+                  className="absolute inset-0 bg-cover bg-center opacity-80 rounded-full"
+                  style={{ backgroundImage: `url('/Images/backround/verdeazul.png')` }}
+                ></div>
+                <Image
+                  src={product.image}
+                  alt={product.name}
+                  width="100px"
+                  height="100px"
+                  className="object-cover rounded-full relative z-10"
+                />
+              </div>
               <div className="flex flex-col gap-2">
                 <h2>{product.name}</h2>
                 <div className="flex flex-row gap-2">
