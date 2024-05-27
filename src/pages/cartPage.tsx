@@ -3,15 +3,35 @@ import CartItem from "../components/cart/cartItem";
 import CartSummary from "../components/cart/CartSummary";
 import NavbarHome from "@/components/ui/navbar/navbarHome";
 import Footer from "@/components/ui/navbar/footer";
-import { Format, ColorSet, ProductCartType } from "@/types/productType";
+import {
+  Format,
+  ColorSet,
+  ProductCartType,
+  Promotion,
+} from "@/types/productType";
 import { useAuth } from "@/hooks/useAuth";
 import { useCart } from "@/hooks/useCart";
+import {
+  Button,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  useDisclosure,
+} from "@nextui-org/react";
 
 export default function CartPage() {
   const { isLoading, isLoggedIn } = useAuth();
-  const { getProducts } = useCart();
+  const { getProducts, getDiscount } = useCart();
   const [products, setProducts] = useState<ProductCartType[]>([]);
   const [loadingProducts, setLoadingProducts] = useState(true);
+  const [promo, setPromotion] = useState<Promotion | null>(null);
+  const {
+    isOpen: isErrorPromotionOpen,
+    onOpen: onErrorPromotionOpen,
+    onClose: onErrorPromotionOpenChange,
+  } = useDisclosure();
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -52,6 +72,17 @@ export default function CartPage() {
     console.log("Checkout");
   };
 
+  const handlePromotion = async (discountCode: string) => {
+    try {
+      const promo = await getDiscount(discountCode);
+      setPromotion(promo);
+      console.log("Applied discount", promo);
+    } catch (error) {
+      onErrorPromotionOpen();
+      console.error("Failed to apply discount", error);
+    }
+  };
+
   const getSubtotal = () => {
     return products.reduce(
       (total, product) =>
@@ -62,25 +93,74 @@ export default function CartPage() {
     );
   };
 
+  const getPromotion = () => {
+    if (!promo) return 0;
+    return (getSubtotal() * promo.value) / 100;
+  };
+
+  const getTotal = () => {
+    return getSubtotal() - getPromotion();
+  };
+
   return (
-    <div className="flex flex-col min-h-[100vh] justify-between">
-      <NavbarHome />
-      <main className="flex flex-1 items-center justify-center">
-        <div className="container mx-auto p-6">
-          <h1 className="text-4xl font-bold text-center mb-6">
-            CARRITO DE COMPRA
-          </h1>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-            <div className="md:col-span-2 space-y-4">
-              {products.map((product) => (
-                <CartItem key={product.id} product={product} />
-              ))}
+    <>
+      <Modal
+        backdrop="opaque"
+        isOpen={isErrorPromotionOpen}
+        onOpenChange={onErrorPromotionOpen}
+        classNames={{
+          backdrop:
+            "bg-gradient-to-t from-zinc-900 to-zinc-900/10 backdrop-opacity-20",
+        }}
+      >
+        <ModalContent>
+          {(onClose) => (
+            <>
+              <ModalHeader className="flex flex-col gap-1">
+                Cuidado ⚠️
+              </ModalHeader>
+              <ModalBody>
+                <p>Código de descuento no valido, por favor intenta con otro</p>
+              </ModalBody>
+              <ModalFooter>
+                <Button
+                  color="danger"
+                  variant="light"
+                  onPress={onErrorPromotionOpenChange}
+                >
+                  Cerrar
+                </Button>
+              </ModalFooter>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
+      <div className="flex flex-col min-h-[100vh] justify-between">
+        <NavbarHome />
+        <main className="flex flex-1 items-center justify-center">
+          <div className="container mx-auto p-6">
+            <h1 className="text-4xl font-bold text-center mb-6">
+              CARRITO DE COMPRA
+            </h1>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+              <div className="md:col-span-2 space-y-4">
+                {products.map((product) => (
+                  <CartItem key={product.id} product={product} />
+                ))}
+              </div>
+              <CartSummary
+                subtotal={getSubtotal()}
+                onCheckout={onCheckout}
+                onPromotion={handlePromotion}
+                promo={promo}
+                promoTotal={getPromotion()}
+                total={getTotal()}
+              />
             </div>
-            <CartSummary subtotal={getSubtotal()} onCheckout={onCheckout} />
           </div>
-        </div>
-      </main>
-      <Footer />
-    </div>
+        </main>
+        <Footer />
+      </div>
+    </>
   );
 }
