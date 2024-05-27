@@ -10,6 +10,12 @@ type UseAuthReturn = {
   isLoggedIn: boolean;
   login: (email: string, password: string) => Promise<void>;
   logout: () => void;
+  register: (
+    email: string,
+    password: string,
+    fullName: string,
+    phone: string
+  ) => Promise<void>;
   isLoading: boolean;
   userInfo: UserInfo;
 };
@@ -54,7 +60,32 @@ export function useAuth(): UseAuthReturn {
       })
       .catch((error) => console.error("Logout failed", error));
   };
-  return { isLoggedIn, login, logout, isLoading, userInfo };
+
+  const register = async (
+    email: string,
+    password: string,
+    fullName: string,
+    phone: string
+  ) => {
+    const response = await fetch("/api/auth/register", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        email: email,
+        password: password,
+        name: fullName,
+        phone: phone,
+      }),
+    });
+    const result = await response.json();
+    if (response.ok) {
+      mutate("/api/auth/status");
+    } else {
+      throw new Error(result.error || "Registration failed");
+    }
+  };
+
+  return { isLoggedIn, login, logout, isLoading, userInfo, register };
 }
 
 async function fetcherUserInfo() {
