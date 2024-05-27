@@ -64,12 +64,12 @@ export default function CartSummary({
       <h3 className="text-xl">Envío:</h3>
       <h3 className="text-xl">Total: ${total}</h3>
       <div className="flex justify-center">
-        <button
+        <Button
           className="mt-4 py-2 px-4 bg-green-500 text-white rounded-md"
           onClick={onCheckout}
         >
           Pedir por WhatsApp
-        </button>
+        </Button>
       </div>
     </div>
   );

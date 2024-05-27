@@ -20,6 +20,7 @@ import {
   ModalHeader,
   useDisclosure,
 } from "@nextui-org/react";
+import { useOrders } from "@/hooks/useOrders";
 
 export default function CartPage() {
   const { isLoading, isLoggedIn } = useAuth();
@@ -32,6 +33,18 @@ export default function CartPage() {
     onOpen: onErrorPromotionOpen,
     onClose: onErrorPromotionOpenChange,
   } = useDisclosure();
+  const {
+    isOpen: isSuccessOrderOpen,
+    onOpen: onSuccessOrderOpen,
+    onClose: onSuccessOrderOpenChange,
+  } = useDisclosure();
+  // modal for error creating order
+  const {
+    isOpen: isErrorOrderOpen,
+    onOpen: onErrorOrderOpen,
+    onClose: onErrorOrderOpenChange,
+  } = useDisclosure();
+  const { createOrder } = useOrders();
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -68,13 +81,29 @@ export default function CartPage() {
     0
   );
   */
-  const onCheckout = () => {
-    console.log("Checkout");
+  const onCheckout = async () => {
+    let susccess = false;
+    if (promo) {
+      susccess = await createOrder(promo.id);
+    } else {
+      susccess = await createOrder();
+    }
+    if (susccess) {
+      setProducts([]);
+      setPromotion(null);
+      onSuccessOrderOpen();
+    } else {
+      onErrorOrderOpen();
+    }
   };
 
   const handlePromotion = async (discountCode: string) => {
     try {
       const promo = await getDiscount(discountCode);
+      if (promo.isAvailable === false) {
+        onErrorPromotionOpen();
+        return;
+      }
       setPromotion(promo);
       console.log("Applied discount", promo);
     } catch (error) {
@@ -127,6 +156,68 @@ export default function CartPage() {
                   color="danger"
                   variant="light"
                   onPress={onErrorPromotionOpenChange}
+                >
+                  Cerrar
+                </Button>
+              </ModalFooter>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
+      <Modal
+        backdrop="opaque"
+        isOpen={isSuccessOrderOpen}
+        onOpenChange={onSuccessOrderOpen}
+        classNames={{
+          backdrop:
+            "bg-gradient-to-t from-zinc-900 to-zinc-900/10 backdrop-opacity-20",
+        }}
+      >
+        <ModalContent>
+          {(onClose) => (
+            <>
+              <ModalHeader className="flex flex-col gap-1">
+                ¡Pedido Realizado! 🎉
+              </ModalHeader>
+              <ModalBody>
+                <p>Pedido realizado con exito</p>
+              </ModalBody>
+              <ModalFooter>
+                <Button
+                  color="danger"
+                  variant="light"
+                  onPress={onSuccessOrderOpenChange}
+                >
+                  Cerrar
+                </Button>
+              </ModalFooter>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
+      <Modal
+        backdrop="opaque"
+        isOpen={isErrorOrderOpen}
+        onOpenChange={onErrorOrderOpen}
+        classNames={{
+          backdrop:
+            "bg-gradient-to-t from-zinc-900 to-zinc-900/10 backdrop-opacity-20",
+        }}
+      >
+        <ModalContent>
+          {(onClose) => (
+            <>
+              <ModalHeader className="flex flex-col gap-1">
+                Upps, algo salio mal 😢
+              </ModalHeader>
+              <ModalBody>
+                <p>No es culpa tuya, intenta más tarde</p>
+              </ModalBody>
+              <ModalFooter>
+                <Button
+                  color="danger"
+                  variant="light"
+                  onPress={onErrorOrderOpenChange}
                 >
                   Cerrar
                 </Button>
