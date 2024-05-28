@@ -1,4 +1,4 @@
-import { Button, Card, CardBody, Image } from "@nextui-org/react";
+import { Button, Card, CardBody, Image, Link } from "@nextui-org/react";
 
 export default function FeaturedProduct() {
   const product = {
@@ -13,11 +13,11 @@ export default function FeaturedProduct() {
           <div className="flex flex-col justify-center items-center gap-8 md:gap-12">
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center">{product.title}</h1>
             <p className="w-3/4 text-sm sm:text-base md:text-lg text-center">{product.description}</p>
-            <a href="http://localhost:3000/products/product?productId=f6dc4f35-b993-4476-98ab-40314faa0bda" target="_blank" rel="noopener noreferrer">
+            <Link href="/products/product?productId=f6dc4f35-b993-4476-98ab-40314faa0bda" target="_blank" rel="noopener noreferrer">
               <Button className="w-260px h-380px font-bold text-lg bg-primary text-focus text-center justify-center" color="success">
                 ¡Lo quiero!
               </Button>
-            </a>
+            </Link>
           </div>
           <div className="relative w-full md:w-1/2 flex justify-center items-center">
             <div
