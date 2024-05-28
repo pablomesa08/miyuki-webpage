@@ -11,10 +11,10 @@ import {
 } from "@nextui-org/react";
 import Icon from "@mdi/react";
 import { mdiCartOutline, mdiAccountOutline } from "@mdi/js";
-import { AcmeLogo } from "./AcmeLogo.jsx";
 import LoginLogoutButtom from "./buttons/loginLogout";
 import ProductsPopover, { Category } from "./ProductsPopover";
 import { useRouter } from "next/router.js";
+import Image from "next/image"; // Importa el componente de imagen de Next.js
 
 export default function NavbarHome() {
   const router = useRouter();
@@ -74,9 +74,13 @@ export default function NavbarHome() {
       <div className="flex flex-row items-center w-full justify-between mx-0 px-4">
         {/* Logo container */}
         <div className="flex items-center space-x-4">
-          <AcmeLogo />
           <Link href="/" color="primary">
-            <p className="font-bold text-inherit">LOGO</p>
+            <Image
+              src="/Images/logo-letra.png" // Ruta de tu logo
+              alt="Logo"
+              width={100} // Ajusta el tamaño según tus necesidades
+              height={100} // Ajusta el tamaño según tus necesidades
+            />
           </Link>
         </div>
 
